@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost:27017/user');
+const mongoURI = process.env.MONGO_URI;
+mongoose.connect(mongoURI);
 
 const User = require('./models/userModel');
 const Account = require('./models/accountModel');
