@@ -31,6 +31,8 @@ const userSignup = async (req, res)=> {
                         });
                 }
 
+                console.log();
+                
                 /** Updating User in User model */
                 const dbUser = await User.create({
                         email: req.body.email,
