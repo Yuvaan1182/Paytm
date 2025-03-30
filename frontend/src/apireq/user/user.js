@@ -2,18 +2,21 @@ import axios from 'axios';
 
 export const userSignup = async (user) => {
   try {
-    console.log(user);
     const response = await axios.post('/api/v1/user/signup', user, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-
-    console.log(response.data);
     
+    console.log("Signup request response", response);
+
     return response.data;
   } catch (error) {
-    console.error(error);
+    // Return the error response so it can be handled in the calling code
+    if (error.response) {
+      return Promise.reject(error.response.data);
+    }
+    return Promise.reject({ message: "An unknown error occurred" });
   }
 };
 

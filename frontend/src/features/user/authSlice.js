@@ -2,19 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { userSignup } from "../../apireq/user/user";
 
 const initialState = {
-  userInfo: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  },
+  userInfo: null,
   loading: false,
   error: null,
   isAuthenticated: false,
 };
 
 export const registerUser = createAsyncThunk(
-  "user/login",
+  "user/register",
   async (user, { rejectWithValue }) => {
     try {
       console.log(user);
@@ -22,7 +17,8 @@ export const registerUser = createAsyncThunk(
       const response = await userSignup(user);
       return response;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || "Login failed");
+      console.log("Error during signup:", error);
+      return rejectWithValue(error?.message || "SignUp failed");
     }
   }
 );
@@ -49,11 +45,23 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.userInfo = action.payload;
+        console.log(action.payload, "action patyload");
+        if (!action.payload?.token) {
+          state.error = action.payload?.message || "Registration failed";
+          return;
+        }
+        const user = action.meta.arg;
+        delete user?.password; // Remove password from user object
+        user.token = action.payload?.token;
+        localStorage.setItem("user", JSON.stringify(user)); // Store payload in localStorage
+        state.userInfo = { user };
+        state.isAuthenticated = true;
       })
       .addCase(registerUser.rejected, (state, action) => {
+        console.log(action.payload, "error");
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || "Registration failed, please try again";
+        state.isAuthenticated = false;
       });
   },
 });

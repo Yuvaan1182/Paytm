@@ -1,153 +1,153 @@
 /** User Router Methods */
-const jwt     = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = require("../../config");
 const { User, Account } = require("../../db");
 const { signUpbody, signInbody, updateBody } = require("./userInputConfig");
 
-const userSignup = async (req, res)=> {
-        try {
-                const { success } = signUpbody.safeParse(req.body);
-                console.log("request reached here", req.body);
-                
-                /** Checking input format of request */
-                if(!success) {
-                        console.log("Incorrect inputs");
-                        
-                        return res.status(411).json({
-                                message: `Incorrect inputs`
-                        })
-                };
+const userSignup = async (req, res) => {
+  try {
+    const { success } = signUpbody.safeParse(req.body);
+    console.log("request reached here", req.body);
 
-                const existingUser = await User.findOne({
-                        email: req.body.email
-                });
+    /** Checking input format of request */
+    if (!success) {
+      console.log("Incorrect inputs");
 
-                /** Checking if user already exists */
-                if(existingUser) {
-                        
-                        return res.status(411).json({
-                                message: `Email already taken / Incorrect inputs`
-                        });
-                }
+      return res.status(411).json({
+        message: `Incorrect inputs`,
+      });
+    }
 
-                console.log();
-                
-                /** Updating User in User model */
-                const dbUser = await User.create({
-                        email: req.body.email,
-                        firstName: req.body.firstName,
-                        lastName: req.body.lastName,
-                        password: req.body.password
-                });
+    const existingUser = await User.findOne({
+      email: req.body.email,
+    });
 
-                const userId = dbUser._id;
+    /** Checking if user already exists */
+    if (existingUser) {
+      return res.status(411).json({
+        message: `Email already taken / Incorrect inputs`,
+      });
+    }
 
-                /** Creating Random balance to update in Account of User */
-                const balance = Math.floor(10000 + Math.random() * 100000);
-                
-                /** Updating a random balance in User Account i.e, Account Model */
-                await Account.create({
-                        userId,
-                        balance: balance
-                });
+    /** Updating User in User model */
+    const dbUser = await User.create(req.body);
 
-                /** Creating JWT token for User for Authorization */
-                const token = jwt.sign({
-                        userId
-                }, JWT_SECRET);
+    const userId = dbUser._id;
 
-                return res.status(200).json({
-                        message: `User created successfully`,
-                        token: token
-                });
+    /** Creating Random balance to update in Account of User */
+    const balance = Math.floor(10000 + Math.random() * 100000);
 
-        } catch (error)  {
-                console.log('Error occurred:', error);
-                res.json({msg: `Error Occurred: ${error}`});
-        }
-}
+    /** Updating a random balance in User Account i.e, Account Model */
+    await Account.create({
+      userId,
+      balance: balance,
+    });
 
-const userSignin = async (req, res)=> {
-        try {
-                const { success } = signInbody.safeParse(req.body);
-                
-                if(!success) {
-                        return res.status(411).json({
-                                message: `Incorrect Email/Password format`
-                        })
-                };
+    /** Creating JWT token for User for Authorization */
+    const token = jwt.sign(
+      {
+        userId,
+      },
+      JWT_SECRET
+    );
 
-                const user = await User.findOne({
-                        email: req.body.email,
-                        password: req.body.password
-                });
+    return res.status(200).json({
+      message: `User created successfully`,
+      token: token,
+    });
+  } catch (error) {
+    console.log("Error occurred:", error);
+    res.json({ msg: `Error Occurred: ${error}` });
+  }
+};
 
-                if(user) {
-                        const token = jwt.sign({
-                                userId: user._id
-                        }, JWT_SECRET);
-        
-                        return res.status(200).json({
-                                message: 'Successfully SignedIn',
-                                token: token
-                        });
-                }
+const userSignin = async (req, res) => {
+  try {
+    const { success } = signInbody.safeParse(req.body);
 
-                return res.status(411).json({
-                        message: `Error while Logging In`
-                });
+    if (!success) {
+      return res.status(411).json({
+        message: `Incorrect Email/Password format`,
+      });
+    }
 
-        } catch (error)  {
-                console.log('Error occurred:', error);
-                return res.json({msg: `Error Occurred: ${error}`});
-        }
-}
+    const user = await User.findOne({
+      email: req.body.email,
+      password: req.body.password,
+    });
 
-const getUsers = async (req, res)=> {
-        try {
-                const filter = req.query.filter || '';
+    if (user) {
+      const token = jwt.sign(
+        {
+          userId: user._id,
+        },
+        JWT_SECRET
+      );
 
-                const users = await User.find({$or: [{firstName: filter}, {lastName: filter}]});
+      return res.status(200).json({
+        message: "Successfully SignedIn",
+        token: token,
+      });
+    }
 
-                return res.status(200).json({users: users.map((user)=> ({
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        _id: user._id
-                }))});
+    return res.status(411).json({
+      message: `Error while Logging In`,
+    });
+  } catch (error) {
+    console.log("Error occurred:", error);
+    return res.json({ msg: `Error Occurred: ${error}` });
+  }
+};
 
-        } catch (error) {
-                console.log(`Error while fetching users`, error);
-                return res.status(411).json({
-                        message: `Error while fetching users`
-                })
-        }
-}
+const getUsers = async (req, res) => {
+  try {
+    const filter = req.query.filter || "";
 
-const updateUser = async (req, res)=> {
-        try {
-                const success = updateBody.safeParse(req.body);
+    const users = await User.find({
+      $or: [{ firstName: filter }, { lastName: filter }],
+    });
 
-                if(!success) {
-                        return res.status(411).json({message: `Error while updating information`});
-                }
-                
-                await User.updateOne({_id: req.userId}, req.body);
+    return res.status(200).json({
+      users: users.map((user) => ({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        _id: user._id,
+      })),
+    });
+  } catch (error) {
+    console.log(`Error while fetching users`, error);
+    return res.status(411).json({
+      message: `Error while fetching users`,
+    });
+  }
+};
 
-                return res.status(200).json({message: `User updated Successfully`});
-        } catch (error) {
+const updateUser = async (req, res) => {
+  try {
+    const success = updateBody.safeParse(req.body);
 
-                console.log(`Error Occurred while updating information`, error);
-                
-                return res.status(411).json({
-                        message: `Error while updating information`
-                });
-        }
-}
+    if (!success) {
+      return res
+        .status(411)
+        .json({ message: `Error while updating information` });
+    }
+
+    await User.updateOne({ _id: req.userId }, req.body);
+
+    return res.status(200).json({ message: `User updated Successfully` });
+  } catch (error) {
+    console.log(`Error Occurred while updating information`, error);
+
+    return res.status(411).json({
+      message: `Error while updating information`,
+    });
+  }
+};
 
 module.exports = {
-        userSignup,
-        userSignin,
-        updateUser,
-        getUsers
-}
+  userSignup,
+  userSignin,
+  updateUser,
+  getUsers,
+};
