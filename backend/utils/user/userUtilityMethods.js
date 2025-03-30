@@ -82,7 +82,10 @@ const userSignin = async (req, res) => {
         {
           userId: user._id,
         },
-        JWT_SECRET
+        JWT_SECRET,
+        {
+          expiresIn: "1h"
+        }
       );
 
       return res.status(200).json({
