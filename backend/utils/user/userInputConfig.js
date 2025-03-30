@@ -1,14 +1,14 @@
 const zod   = require('zod');
 
 const signUpbody = zod.object({
-        userName: zod.string().email(),
+        email: zod.string().email(),
         firstName: zod.string().min(3).max(30),
         lastName: zod.string().min(3).max(30),
         password: zod.string().min(6).max(30),
 });
 
 const signInbody = zod.object({
-        userName: zod.string().email(),
+        email: zod.string().email(),
         password: zod.string().min(6).max(30),
 });
 

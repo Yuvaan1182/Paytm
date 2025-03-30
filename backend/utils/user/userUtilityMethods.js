@@ -8,20 +8,24 @@ const { signUpbody, signInbody, updateBody } = require("./userInputConfig");
 const userSignup = async (req, res)=> {
         try {
                 const { success } = signUpbody.safeParse(req.body);
+                console.log("request reached here", req.body);
                 
                 /** Checking input format of request */
                 if(!success) {
+                        console.log("Incorrect inputs");
+                        
                         return res.status(411).json({
-                                message: `Email already taken / Incorrect inputs`
+                                message: `Incorrect inputs`
                         })
                 };
 
                 const existingUser = await User.findOne({
-                        userName: req.body.userName
+                        email: req.body.email
                 });
 
                 /** Checking if user already exists */
                 if(existingUser) {
+                        
                         return res.status(411).json({
                                 message: `Email already taken / Incorrect inputs`
                         });
@@ -29,7 +33,7 @@ const userSignup = async (req, res)=> {
 
                 /** Updating User in User model */
                 const dbUser = await User.create({
-                        userName: req.body.userName,
+                        email: req.body.email,
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
                         password: req.body.password
@@ -38,7 +42,7 @@ const userSignup = async (req, res)=> {
                 const userId = dbUser._id;
 
                 /** Creating Random balance to update in Account of User */
-                const balance = Math.floor(1 + Math.random() * 10000);
+                const balance = Math.floor(10000 + Math.random() * 100000);
                 
                 /** Updating a random balance in User Account i.e, Account Model */
                 await Account.create({
@@ -73,7 +77,7 @@ const userSignin = async (req, res)=> {
                 };
 
                 const user = await User.findOne({
-                        userName: req.body.userName,
+                        email: req.body.email,
                         password: req.body.password
                 });
 
