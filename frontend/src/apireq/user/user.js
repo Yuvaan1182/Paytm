@@ -20,9 +20,13 @@ export const userSignup = async (user) => {
   }
 };
 
-export const userSigin = async (user) => {
+export const userSignin = async (user) => {
     try {
-        const response = await axios.post('/api/v1/user/signin', user);
+        const response = await axios.post('/api/v1/user/signin', user, {
+          headers : {
+            'Content-Type': 'application/json',
+          }
+      });
         return response.data;
     } catch (error) {
         console.error(error);
