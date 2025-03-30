@@ -17,7 +17,7 @@ export const userSignup = async (user) => {
   }
 };
 
-export const userSigin = async (user) => {
+export const userSignin = async (user) => {
     try {
         const response = await axios.post('/api/v1/user/signin', user);
         return response.data;
