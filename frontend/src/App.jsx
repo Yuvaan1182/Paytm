@@ -6,6 +6,7 @@ import SendMoney from "./routes/SendMoney";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
+
   return (
     <div className="h-screen">
       <ErrorBoundary>
