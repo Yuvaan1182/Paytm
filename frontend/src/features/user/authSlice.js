@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { userSignup, userSignin } from "../../apireq/user/user";
 
 const initialState = {
-  userInfo: null,
+  userInfo: JSON.parse(localStorage.getItem("user")) || null,
   loading: false,
   error: null,
-  isAuthenticated: false,
+  isAuthenticated: !!localStorage.getItem("user"),
 };
 
 export const registerUser = createAsyncThunk(
@@ -57,9 +57,16 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.userInfo = { ...state.userInfo, ...action.meta.arg, ...action.payload };
         state.isAuthenticated = true;
-        localStorage.setItem("user", JSON.stringify(action.payload));
+        const user = {
+          email: action.payload.user?.email,
+          firstName: action.payload.user?.firstName,
+          lastName: action.payload.user?.lastName,
+          token: action.payload.token,
+          balance: action.payload.balance,
+        };
+        state.userInfo = user;
+        localStorage.setItem("user", JSON.stringify(user));
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -79,8 +86,9 @@ const authSlice = createSlice({
         const user = action.meta.arg;
         delete user?.password; // Remove password from user object
         user.token = action.payload?.token;
+        user.balance = action.payload?.balance;
         localStorage.setItem("user", JSON.stringify(user)); // Store payload in localStorage
-        state.userInfo = { user };
+        state.userInfo = user;        
         state.isAuthenticated = true;
       })
       .addCase(registerUser.rejected, (state, action) => {

@@ -1,7 +1,13 @@
-import React from "react";
 import { FiSearch } from "react-icons/fi";
+import PropTypes from "prop-types";
 
-export default function SearchBox({ placeholder, type, value }) {
+export default function SearchBox({
+  placeholder,
+  type,
+  value,
+  handleChange,
+  handleClick,
+}) {
   return (
     <div className="flex items-center h-full w-full">
       <input
@@ -9,10 +15,23 @@ export default function SearchBox({ placeholder, type, value }) {
         type={type}
         placeholder={placeholder}
         value={value}
+        onChange={handleChange}
+        required
       />
-      <div className="flex items-center justify-center font-bold bg-blue-400 text-white rounded-md px-4 h-full rounded-bl-none rounded-tl-none">
+      <div
+        className="flex items-center justify-center font-bold bg-blue-400 text-white rounded-md px-4 h-full rounded-bl-none rounded-tl-none"
+        onClick={handleClick}
+      >
         <FiSearch />
       </div>
     </div>
   );
 }
+
+SearchBox.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};

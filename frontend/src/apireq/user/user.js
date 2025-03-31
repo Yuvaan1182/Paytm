@@ -34,7 +34,7 @@ export const userSignin = async (user) => {
         return response.data;
     } catch (error) {
         errorHandler(error);
-        console.error(error);
+        
         if (error.response) {
           return Promise.reject(error.response.data);
         }
@@ -48,7 +48,7 @@ export const updateUser = async (user) => {
     return response.data;
   } catch (error) {
     errorHandler(error);
-    console.error(error);
+
     if (error.response) {
       return Promise.reject(error.response.data);
     }
@@ -58,11 +58,23 @@ export const updateUser = async (user) => {
 
 export const getUsers = async (filter) => {
   try {
-    const response = await axios.get(`/api/v1/user/bulk?filter=${filter}`);
+    const token = JSON.parse(localStorage.getItem('user'))?.token || undefined;
+    
+    if (!token) {
+      errorHandler("Authentication Failed, Please login to access this feature.");
+    }
+
+    const response = await axios.get(`/api/v1/user/bulk?filter=${filter}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    
     return response.data;
   } catch (error) {
     errorHandler(error);
-    console.error(error);
+
     if (error.response) {
       return Promise.reject(error.response.data);
     }

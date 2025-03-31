@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { transferFunds, getUsers } from "../../apireq/accounts/account";
+import { transferFunds } from "../../apireq/accounts/account";
+import { getUsers } from "../../apireq/user/user";
+import { toast } from "react-toastify";
 
 const initialState = {
   accountDetails: null,
   balance: 0,
   loading: false,
   error: null,
+  userList: [],
 };
 
 export const updateBalance = createAsyncThunk(
@@ -15,6 +18,7 @@ export const updateBalance = createAsyncThunk(
       const data = await transferFunds(transfer);
       return data;
     } catch (error) {
+      
       return rejectWithValue(error.message || "Failed to update balance");
     }
   }
@@ -45,19 +49,6 @@ const accountSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAccountDetails.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchAccountDetails.fulfilled, (state, action) => {
-        state.loading = false;
-        state.accountDetails = action.payload;
-        state.balance = action.payload.balance;
-      })
-      .addCase(fetchAccountDetails.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
       .addCase(updateBalance.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -65,6 +56,7 @@ const accountSlice = createSlice({
       .addCase(updateBalance.fulfilled, (state, action) => {
         state.loading = false;
         state.balance = action.payload.newBalance;
+        toast.success("Money transfered successfully!");
       })
       .addCase(updateBalance.rejected, (state, action) => {
         state.loading = false;
@@ -76,7 +68,7 @@ const accountSlice = createSlice({
       })
       .addCase(fetchUserList.fulfilled, (state, action) => {
         state.loading = false;
-        state.accountDetails = action.payload;
+        state.userList = action.payload.users;
       })
       .addCase(fetchUserList.rejected, (state, action) => {
         state.loading = false;

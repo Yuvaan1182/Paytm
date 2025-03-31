@@ -27,9 +27,10 @@ const getUserBalance = async (req, res) => {
 };
 
 const transferFunds = async (req, res) => {
+  let session; // Define session variable
   try {
     /** Creating transaction */
-    const session = await mongoose.startSession();
+    session = await mongoose.startSession();
 
     /** Start Transaction */
     session.startTransaction();

@@ -1,8 +1,39 @@
-import React from "react";
 import InputBox from "./InputBox";
 import Button from "./Button";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateBalance } from "../features/account/accountSlice";
+import { useLocation } from "react-router-dom";
 
-export default function Modal({ name }) {
+export default function Modal() {
+  const location = useLocation();
+  
+  const { user } = location.state || {};
+  const firstName = user?.firstName || "John";
+  const lastName = user?.lastName || "Doe";
+  const name = `${firstName} ${lastName}`;
+
+  const [amount, setAmount] = useState(0);
+
+  console.log("User Info:", user);
+  
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    // Handle the change event here
+    const { value } = e.target;
+    setAmount(value);
+  }
+
+  const dispatch = useDispatch();
+  const transferMoney = (e) => {
+    e.preventDefault();
+    // Handle the transfer money event here
+    console.log("Transfer money initiated with amount:", amount);
+    const to = user._id;
+    dispatch(updateBalance({to: to, amount: amount}));
+  }
+
   return (
     <div className="h-full flex items-center justify-center font-sans">
       <div className="w-120 flex flex-col gap-10 p-10 shadow-md">
@@ -23,7 +54,9 @@ export default function Modal({ name }) {
               label={"Amount (in Rs)"}
               placeholder={"Enter Amount"}
               type={"text"}
-              value={""}
+              value={amount.toString()} // Ensure value is a string
+              handleChange={handleChange}
+              name={"amount"}
             />
           </div>
           <div className="w-full">
@@ -31,6 +64,7 @@ export default function Modal({ name }) {
               label={"Initiate Transfer"}
               type={"submit"}
               color={"green"}
+              handleClick={transferMoney}
             />
           </div>
         </div>

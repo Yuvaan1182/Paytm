@@ -53,6 +53,7 @@ const userSignup = async (req, res) => {
     );
 
     return res.status(200).json({
+      balance: balance,
       message: `User created successfully`,
       token: token,
     });
@@ -88,7 +89,17 @@ const userSignin = async (req, res) => {
         }
       );
 
+      const account = await Account.findOne({ userId: user._id });
+      const balance = account.balance;
+      user.balance = balance;
+
+      const { _id, __v, ...userWithoutIdAndVersion } = user.toObject();
+
+      console.log(userWithoutIdAndVersion, "user in signin");
+
       return res.status(200).json({
+        user: userWithoutIdAndVersion,
+        balance: balance,
         message: "Successfully SignedIn",
         token: token,
       });
