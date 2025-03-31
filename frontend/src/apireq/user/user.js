@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { errorHandler } from '../../components/ErrorHandler';
 
 export const userSignup = async (user) => {
   try {
@@ -12,6 +13,9 @@ export const userSignup = async (user) => {
 
     return response.data;
   } catch (error) {
+
+    errorHandler(error);
+
     // Return the error response so it can be handled in the calling code
     if (error.response) {
       return Promise.reject(error.response.data);
@@ -29,7 +33,12 @@ export const userSignin = async (user) => {
       });
         return response.data;
     } catch (error) {
+        errorHandler(error);
         console.error(error);
+        if (error.response) {
+          return Promise.reject(error.response.data);
+        }
+        return Promise.reject({ message: "An unknown error occurred" });
     }
 };
 
@@ -38,7 +47,12 @@ export const updateUser = async (user) => {
     const response = await axios.put('/api/v1/user', user);
     return response.data;
   } catch (error) {
+    errorHandler(error);
     console.error(error);
+    if (error.response) {
+      return Promise.reject(error.response.data);
+    }
+    return Promise.reject({ message: "An unknown error occurred" });
   }
 }
 
@@ -47,6 +61,11 @@ export const getUsers = async (filter) => {
     const response = await axios.get(`/api/v1/user/bulk?filter=${filter}`);
     return response.data;
   } catch (error) {
+    errorHandler(error);
     console.error(error);
+    if (error.response) {
+      return Promise.reject(error.response.data);
+    }
+    return Promise.reject({ message: "An unknown error occurred" });
   }
 }
