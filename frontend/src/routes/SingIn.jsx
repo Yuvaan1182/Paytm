@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import BottomWarning from "../components/BottomWarning";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../features/user/authSlice"; // Adjust the path if needed
+import { loginUser } from "../features/auth/authSlice"; 
 import { useNavigate } from "react-router-dom";
 
 function SignIn() {
@@ -14,22 +14,18 @@ function SignIn() {
     password: "",
   });
 
-  const {isAuthenticated} = useSelector((state) => state.user);
+  const {isAuthenticated} = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      navigate("/dashboard");
-    }
-
-    if(isAuthenticated){
+    if (isAuthenticated) {
       navigate("/dashboard");
     }
   }, [isAuthenticated, navigate]);
 
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +43,7 @@ function SignIn() {
       return;
     }
     console.log(user);
-    dispatch(loginUser(JSON.stringify(user))); 
+    dispatch(loginUser(user)); 
   };
 
   return (

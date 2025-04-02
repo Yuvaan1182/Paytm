@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { errorHandler } from '../../components/ErrorHandler';
+import { getWithExpiry } from '../../features/utility/utility';
 
 export const transferFunds = async (transfer) => {
     try {
-        const token = JSON.parse(localStorage.getItem('user'))?.token || undefined;
+        const token = getWithExpiry("token");
         if (!token) {
             errorHandler("User not authenticated. Please log in.");
             return;

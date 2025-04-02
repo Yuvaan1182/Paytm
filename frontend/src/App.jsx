@@ -7,19 +7,18 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ToastContainer } from "react-toastify";
 
 function App() {
-
   return (
     <div className="h-screen">
       <ErrorBoundary>
         <ToastContainer
-                position="top-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                closeOnClick
-                pauseOnHover
-                draggable
-                theme="dark"
-              />
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          closeOnClick
+          pauseOnHover
+          draggable
+          theme="dark"
+        />
         <Router>
           <Routes>
             <Route path={"/register"} element={<SignUp />} />

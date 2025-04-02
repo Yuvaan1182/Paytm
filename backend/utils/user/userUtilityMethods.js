@@ -8,12 +8,9 @@ const { signUpbody, signInbody, updateBody } = require("./userInputConfig");
 const userSignup = async (req, res) => {
   try {
     const { success } = signUpbody.safeParse(req.body);
-    console.log("request reached here", req.body);
 
     /** Checking input format of request */
     if (!success) {
-      console.log("Incorrect inputs");
-
       return res.status(411).json({
         message: `Incorrect inputs`,
       });
@@ -95,8 +92,6 @@ const userSignin = async (req, res) => {
 
       const { _id, __v, ...userWithoutIdAndVersion } = user.toObject();
 
-      console.log(userWithoutIdAndVersion, "user in signin");
-
       return res.status(200).json({
         user: userWithoutIdAndVersion,
         balance: balance,
@@ -126,6 +121,7 @@ const getUsers = async (req, res) => {
       users: users.map((user) => ({
         firstName: user.firstName,
         lastName: user.lastName,
+        email: user.email,
         _id: user._id,
       })),
     });

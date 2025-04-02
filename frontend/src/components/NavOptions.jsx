@@ -1,17 +1,17 @@
-import { LuLogOut } from "react-icons/lu";
-import PropTypes from "prop-types";
+import { getWithExpiry } from "../features/utility/utility";
 
-export default function NavOptions({name}) {
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    window.location.href = "/login";
-  };
+export default function NavOptions() {
+  const userInfo = getWithExpiry("user");
+  const firstName = userInfo?.firstName || "User";
+  const name =
+    firstName[0].toUpperCase() + firstName.substring(1, firstName.length);
 
   return (
     <>
       <ul className="flex justify-evenly items-center gap-2">
-        <li onClick={handleLogout}><LuLogOut /></li>
-        <li>Hello, {name}</li>
+        <li>
+          Hello, <span className="font-bold">{name}</span>
+        </li>
         <li>
           <div className="w-8 h-8 flex items-center justify-center rounded-full p-2 font-bold bg-blue-400 text-white">
             {name[0]}
@@ -21,7 +21,3 @@ export default function NavOptions({name}) {
     </>
   );
 }
-
-NavOptions.propTypes = {
-  name: PropTypes.string.isRequired,
-};

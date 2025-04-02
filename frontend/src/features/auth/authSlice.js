@@ -1,20 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { userSignup, userSignin } from "../../apireq/user/user";
+import { getWithExpiry, removeLocalStorageItem, setWithExpiry } from "../utility/utility";
+import { setBalance } from "../balance/balanceSlice";
 
 const initialState = {
-  userInfo: JSON.parse(localStorage.getItem("user")) || null,
+  userInfo: getWithExpiry("user"),
   loading: false,
   error: null,
-  isAuthenticated: !!localStorage.getItem("user"),
+  isAuthenticated: !!getWithExpiry("token"),
 };
 
 export const registerUser = createAsyncThunk(
   "user/register",
-  async (user, { rejectWithValue }) => {
+  async (user, { rejectWithValue, dispatch }) => {
     try {
-      console.log(user);
-
       const response = await userSignup(user);
+
+      const balance = response?.balance || 0;
+      dispatch(setBalance(balance)); // Update balance state
+      setWithExpiry("balance", balance, 1000 * 60 * 60); // 1 hour
       return response;
     } catch (error) {
       console.log("Error during signup:", error);
@@ -25,9 +29,17 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   "user/login",
-  async (user, { rejectWithValue }) => {
+  async (user, { rejectWithValue, dispatch }) => {
     try {
-      const response = await userSignin(user); // Replace with your login API function
+      const response = await userSignin(user, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }); 
+      
+      const balance = response?.balance || 0;
+      dispatch(setBalance(balance)); // Update balance state
+      setWithExpiry("balance", balance, 1000 * 60 * 60); // 1 hour
       return response;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Login failed");
@@ -40,13 +52,14 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      state.user = null;
+      state.userInfo = null;
       state.loading = false;
       state.error = null;
       state.isAuthenticated = false;
-    },
-    users: (state, action) => {
-      state.users = action.payload;
+      removeLocalStorageItem("user");
+      removeLocalStorageItem("token");
+      removeLocalStorageItem("balance");
+      window.location.href = "/login";
     },
   },
   extraReducers: (builder) => {
@@ -57,20 +70,24 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.isAuthenticated = true;
+        state.error = null;
         const user = {
           email: action.payload.user?.email,
           firstName: action.payload.user?.firstName,
           lastName: action.payload.user?.lastName,
-          token: action.payload.token,
-          balance: action.payload.balance,
         };
+        setWithExpiry("user", user, 1000 * 60 * 60); // 1 hour
+        
+        const token = action.payload.token;
+        setWithExpiry("token", token, 1000 * 60 * 60); // 1 hour
+        
         state.userInfo = user;
-        localStorage.setItem("user", JSON.stringify(user));
+        state.isAuthenticated = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload || "Login failed, please try again";
+        state.isAuthenticated = false;
       })
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
@@ -78,21 +95,27 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.payload, "action patyload");
-        if (!action.payload?.token) {
-          state.error = action.payload?.message || "Registration failed";
-          return;
-        }
+        state.error = null;
+        
+        /** Creating a user object with user info email, firstName, lastName */
         const user = action.meta.arg;
-        delete user?.password; // Remove password from user object
-        user.token = action.payload?.token;
-        user.balance = action.payload?.balance;
-        localStorage.setItem("user", JSON.stringify(user)); // Store payload in localStorage
+        
+        /** Remove password from user object */ 
+        delete user?.password; 
+        
+        /** Setting user info in state */
+        setWithExpiry("user", user, 1000 * 60 * 60); // 1 hour
+        
+        const token = action.payload?.token || null;
+        /** Setting token in localStorage */
+        if (token) {
+          setWithExpiry("token", token, 1000 * 60 * 60); // 1 hour
+        }
+        
         state.userInfo = user;        
         state.isAuthenticated = true;
       })
       .addCase(registerUser.rejected, (state, action) => {
-        console.log(action.payload, "error");
         state.loading = false;
         state.error = action.payload || "Registration failed, please try again";
         state.isAuthenticated = false;

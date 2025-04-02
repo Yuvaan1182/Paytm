@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 
-const { Account } = require("../../db");
+const { Account, Transaction } = require("../../db");
 
 const getUserBalance = async (req, res) => {
   try {
@@ -27,32 +27,45 @@ const getUserBalance = async (req, res) => {
 };
 
 const transferFunds = async (req, res) => {
-  let session; // Define session variable
+  /** Creating transaction */
+  const session = await mongoose.startSession(); // Define session variable
+
+  /** Start Transaction */
+  session.startTransaction();
+  
+  const { to, amount } = req.body;
+  const receiver = to;
+  const sender = req.userId;
+
   try {
-    /** Creating transaction */
-    session = await mongoose.startSession();
+    const transaction = new Transaction({
+      receiverId: receiver,
+      senderId: sender,
+      amount: amount,
+      transactionType: "debit",
+      statusHistory: [{ status: "pending" }],
+    });
 
-    /** Start Transaction */
-    session.startTransaction();
+    await transaction.save({ session });
 
-    const { to, amount } = req.body;
-
-    const account = await Account.findOne({ userId: req.userId }).session(
+    const senderAcc = await Account.findOne({ userId: sender }).session(
       session
     );
 
     /** Aborting transaction if user not found or insufficient balance */
-    if (!account || account.balance < amount) {
+    if (!senderAcc || senderAcc.balance < amount) {
       await session.abortTransaction();
       return res.status(400).json({
         message: `Insufficient balance`,
       });
     }
 
-    const toAccount = await Account.findOne({ userId: to }).session(session);
+    const receiverAcc = await Account.findOne({ userId: receiver }).session(
+      session
+    );
 
     /** Checking if Recipient Exists in Db */
-    if (!toAccount) {
+    if (!receiverAcc) {
       await session.abortTransaction();
       return res.status(400).json({
         message: `Aborting Session Recipient doesn't exist / Account Not found`,
@@ -63,12 +76,12 @@ const transferFunds = async (req, res) => {
     /** Handling concurrent request trial of user to transfer fund to multiple user at same time */
     const updateSenderFund = await Account.findOneAndUpdate(
       {
-        userId: req.userId,
-        __v: account.__v,
+        userId: sender,
+        __v: senderAcc.__v,
       },
       {
         $inc: { balance: -amount },
-        $set: { __v: account.__v + 1 },
+        $set: { __v: senderAcc.__v + 1 },
       },
       { session, new: true }
     );
@@ -89,10 +102,19 @@ const transferFunds = async (req, res) => {
       { session }
     );
 
+    transaction.statusHistory.push({
+      status: "completed",
+      timestamp: new Date(),
+    });
+
+    // Save the transaction with the updated status
+    await transaction.save({ session });
+
     /** Committing Transaction | End transaction */
     await session.commitTransaction();
 
     return res.status(200).json({
+      balance: updateSenderFund.balance,
       message: `Transfer Successful`,
     });
   } catch (error) {
@@ -100,6 +122,22 @@ const transferFunds = async (req, res) => {
     if (session) {
       await session.abortTransaction();
     }
+
+    /** Handling Transaction Error */
+    // Log the failed transaction
+    const failedTransaction = new Transaction({
+      senderId: sender,
+      receiverId: receiver,
+      amount: amount,
+      transactionType: "debit",
+      statusHistory: [
+        { status: "pending" },
+        { status: "failed", timestamp: new Date() },
+      ],
+    });
+
+    await failedTransaction.save();
+
     return res.status(500).json({
       message: `Failed transaction`,
     });
@@ -111,7 +149,49 @@ const transferFunds = async (req, res) => {
   }
 };
 
+const getTransactionHistory = async (req, res) => {
+  try {
+    const transactions = await Transaction.aggregate([
+      {
+        $lookup: {
+          from: "users", // collection name to join with
+          localField: "receiver", // field in trnansaction collection to match with
+          foreignField: "_id", // field in users collection to match with
+          as: "receiverDetails", // output array field for receiver details
+        },
+      },
+      {
+        $unwind: "$receiverDetails",
+      },
+      {
+        $project: {
+          _id: 1,
+          amount: 1,
+          transactionType: 1,
+          statusHistory: 1,
+          createdAt: 1,
+          receiverDetails: {
+            firstName: 1,
+            lastName: 1,
+            email: 1,
+          },
+        },
+      },
+    ]);
+
+    return res.status(200).json({
+      transactions,
+    });
+  } catch (error) {
+    console.log(`Error fetching transaction history`, error);
+    return res.status(500).json({
+      message: `Error while fetching transaction history`,
+    });
+  }
+};
+
 module.exports = {
   getUserBalance,
   transferFunds,
+  getTransactionHistory,
 };

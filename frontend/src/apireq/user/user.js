@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { errorHandler } from '../../components/ErrorHandler';
+import { getWithExpiry } from '../../features/utility/utility';
 
 export const userSignup = async (user) => {
   try {
@@ -58,7 +59,7 @@ export const updateUser = async (user) => {
 
 export const getUsers = async (filter) => {
   try {
-    const token = JSON.parse(localStorage.getItem('user'))?.token || undefined;
+    const token = getWithExpiry("token");
     
     if (!token) {
       errorHandler("Authentication Failed, Please login to access this feature.");

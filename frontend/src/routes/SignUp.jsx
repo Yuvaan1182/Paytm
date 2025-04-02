@@ -5,14 +5,15 @@ import Button from "../components/Button";
 import BottomWarning from "../components/BottomWarning";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { registerUser } from "../features/user/authSlice";
+import { registerUser } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function SignUp() {
   const { loading, isAuthenticated } = useSelector(
-    (state) => state.user
+    (state) => state.auth
   );
+  
   const dispatch = useDispatch();
   const [user, setUser] = useState({
     firstName: "",
@@ -24,7 +25,7 @@ function SignUp() {
   const navigate = useNavigate();
   useEffect(() => {
     if (isAuthenticated) {
-      toast.success("User Created Successfully")
+      toast.success("User Created Successfully");
       navigate("/dashboard");
     }
   }, [isAuthenticated, navigate]);

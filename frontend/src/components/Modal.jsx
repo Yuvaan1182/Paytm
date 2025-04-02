@@ -13,14 +13,11 @@ export default function Modal() {
   const lastName = user?.lastName || "Doe";
   const name = `${firstName} ${lastName}`;
 
-  const [amount, setAmount] = useState(0);
-
-  console.log("User Info:", user);
-  
+  const [amount, setAmount] = useState('');
 
   const handleChange = (e) => {
     e.preventDefault();
-    // Handle the change event here
+    // Handle the change event for the input box
     const { value } = e.target;
     setAmount(value);
   }
@@ -29,9 +26,9 @@ export default function Modal() {
   const transferMoney = (e) => {
     e.preventDefault();
     // Handle the transfer money event here
-    console.log("Transfer money initiated with amount:", amount);
     const to = user._id;
     dispatch(updateBalance({to: to, amount: amount}));
+    setAmount(0); // Reset the amount after transfer
   }
 
   return (

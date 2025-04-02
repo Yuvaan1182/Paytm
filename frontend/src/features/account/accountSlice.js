@@ -1,40 +1,33 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { transferFunds } from "../../apireq/accounts/account";
-import { getUsers } from "../../apireq/user/user";
 import { toast } from "react-toastify";
+import { setBalance } from "../balance/balanceSlice";
+import { setWithExpiry } from "../utility/utility";
+import { errorHandler } from "../../components/ErrorHandler";
 
 const initialState = {
   accountDetails: null,
-  balance: 0,
   loading: false,
   error: null,
-  userList: [],
 };
 
 export const updateBalance = createAsyncThunk(
   "account/updateBalance",
-  async (transfer, { rejectWithValue }) => {
+  async (transfer, { rejectWithValue, dispatch }) => {
     try {
       const data = await transferFunds(transfer);
+      // Update balance state
+      dispatch(setBalance(data.balance)); 
+      setWithExpiry ("balance", data.balance, 1000 * 60 * 60); // 1 hour
       return data;
     } catch (error) {
-      
+      errorHandler(error);
       return rejectWithValue(error.message || "Failed to update balance");
     }
   }
 );
 
-export const fetchUserList = createAsyncThunk(
-  "account/fetchUserList",
-  async (filter, { rejectWithValue }) => {
-    try {
-      const data = await getUsers(filter);
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.message || "Failed to fetch user list");
-    }
-  }
-);
+
 
 const accountSlice = createSlice({
   name: "account",
@@ -55,25 +48,14 @@ const accountSlice = createSlice({
       })
       .addCase(updateBalance.fulfilled, (state, action) => {
         state.loading = false;
-        state.balance = action.payload.newBalance;
-        toast.success("Money transfered successfully!");
+        const amount = action.meta.arg.amount;
+        toast.success(`${amount}$ Transfered Successfully!`);
       })
       .addCase(updateBalance.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        errorHandler(action.payload || "Failed to transfer funds");
       })
-      .addCase(fetchUserList.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchUserList.fulfilled, (state, action) => {
-        state.loading = false;
-        state.userList = action.payload.users;
-      })
-      .addCase(fetchUserList.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
   },
 });
 
