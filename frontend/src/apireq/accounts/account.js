@@ -2,6 +2,7 @@ import axios from 'axios';
 import { errorHandler } from '../../components/ErrorHandler';
 import { getWithExpiry } from '../../features/utility/utility';
 
+const BASE_URL = "https://upay-0778.onrender.com";
 export const transferFunds = async (transfer) => {
     try {
         const token = getWithExpiry("token");
@@ -9,7 +10,7 @@ export const transferFunds = async (transfer) => {
             errorHandler("User not authenticated. Please log in.");
             return;
         }
-        const response = await axios.post('/api/v1/account/transfer', transfer, {
+        const response = await axios.post(`${BASE_URL}/api/v1/account/transfer`, transfer, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,

@@ -2,9 +2,11 @@ import axios from 'axios';
 import { errorHandler } from '../../components/ErrorHandler';
 import { getWithExpiry } from '../../features/utility/utility';
 
+const BASE_URL = "https://upay-0778.onrender.com";
+
 export const userSignup = async (user) => {
   try {
-    const response = await axios.post('/api/v1/user/signup', user, {
+    const response = await axios.post(`${BASE_URL}/api/v1/user/signup`, user, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -27,7 +29,7 @@ export const userSignup = async (user) => {
 
 export const userSignin = async (user) => {
     try {
-        const response = await axios.post('/api/v1/user/signin', user, {
+        const response = await axios.post(`${BASE_URL}/api/v1/user/signin`, user, {
           headers : {
             'Content-Type': 'application/json',
           }
@@ -45,7 +47,7 @@ export const userSignin = async (user) => {
 
 export const updateUser = async (user) => {
   try {
-    const response = await axios.put('/api/v1/user', user);
+    const response = await axios.put(`${BASE_URL}/api/v1/user`, user);
     return response.data;
   } catch (error) {
     errorHandler(error);
@@ -65,7 +67,7 @@ export const getUsers = async (filter) => {
       errorHandler("Authentication Failed, Please login to access this feature.");
     }
 
-    const response = await axios.get(`/api/v1/user/bulk?filter=${filter}`, {
+    const response = await axios.get(`${BASE_URL}/api/v1/user/bulk?filter=${filter}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
