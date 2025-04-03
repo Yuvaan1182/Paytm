@@ -61,6 +61,8 @@ const userSignup = async (req, res) => {
 };
 
 const userSignin = async (req, res) => {
+  console.log("Inside signIn");
+  
   try {
     const { success } = signInbody.safeParse(req.body);
 
