@@ -1,6 +1,7 @@
 /** Account Utility Methods */
 
 const mongoose = require("mongoose");
+const logger = require("../logger"); // Import logger
 
 const { Account, Transaction } = require("../../db");
 
@@ -19,7 +20,7 @@ const getUserBalance = async (req, res) => {
       balance: account.balance,
     });
   } catch (error) {
-    console.log(`Error fetching balance`, error);
+    logger.error(`Error fetching balance`, error);
     return res.status(411).json({
       message: `Error while fetching balance`,
     });
@@ -118,7 +119,7 @@ const transferFunds = async (req, res) => {
       message: `Transfer Successful`,
     });
   } catch (error) {
-    console.log(`Error in transaction`, error);
+    logger.error(`Error in transaction`, error);
     if (session) {
       await session.abortTransaction();
     }
@@ -183,7 +184,7 @@ const getTransactionHistory = async (req, res) => {
       transactions,
     });
   } catch (error) {
-    console.log(`Error fetching transaction history`, error);
+    logger.error(`Error fetching transaction history`, error);
     return res.status(500).json({
       message: `Error while fetching transaction history`,
     });

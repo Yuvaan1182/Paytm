@@ -1,5 +1,6 @@
 /** User Router Methods */
 const jwt = require("jsonwebtoken");
+const logger = require("../logger"); // Import logger
 
 const JWT_SECRET = require("../../config");
 const { User, Account } = require("../../db");
@@ -55,13 +56,13 @@ const userSignup = async (req, res) => {
       token: token,
     });
   } catch (error) {
-    console.log("Error occurred:", error);
+    logger.error("Error occurred:", error);
     res.json({ msg: `Error Occurred: ${error}` });
   }
 };
 
 const userSignin = async (req, res) => {
-  console.log("Inside signIn");
+  logger.info("Inside signIn");
   
   try {
     const { success } = signInbody.safeParse(req.body);
@@ -106,7 +107,7 @@ const userSignin = async (req, res) => {
       message: `Error while Logging In`,
     });
   } catch (error) {
-    console.log("Error occurred:", error);
+    logger.error("Error occurred:", error);
     return res.json({ msg: `Error Occurred: ${error}` });
   }
 };
@@ -128,7 +129,7 @@ const getUsers = async (req, res) => {
       })),
     });
   } catch (error) {
-    console.log(`Error while fetching users`, error);
+    logger.error(`Error while fetching users`, error);
     return res.status(411).json({
       message: `Error while fetching users`,
     });
@@ -149,7 +150,7 @@ const updateUser = async (req, res) => {
 
     return res.status(200).json({ message: `User updated Successfully` });
   } catch (error) {
-    console.log(`Error Occurred while updating information`, error);
+    logger.error(`Error Occurred while updating information`, error);
 
     return res.status(411).json({
       message: `Error while updating information`,

@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = require('../config');
+const logger = require('../utils/logger'); // Import logger
 
 const authMiddleWare = (req, res, next)=> {
         try {
@@ -18,7 +19,7 @@ const authMiddleWare = (req, res, next)=> {
 
                 next();
         } catch(error) {
-                console.log("Error in Authentication: ", error);
+                logger.error("Error in Authentication: ", error);
                 return res.status(403).json({
                         message: "Authentication token not found"
                 });
