@@ -31,11 +31,14 @@ function Dashboard() {
   return (
     <div className="h-full flex flex-col">
       <div className="flex items-center justify-between px-4 py-2 shadow-md">
-      <div className="flex gap-2 items-center px-4 font-bold bg-slate-800 text-white rounded-md py-2" onClick={handleLogout}>
+        <div
+          className="flex gap-2 items-center px-4 font-bold bg-slate-800 text-white rounded-md py-2"
+          onClick={handleLogout}
+        >
           <LuLogOut /> <span>Logout</span>
         </div>
         <div className="flex items-center text-blue-400 text-2xl font-bold">
-        UPay
+          UPay
         </div>
         <div>
           <NavOptions />
@@ -55,20 +58,31 @@ function Dashboard() {
           </div>
         </div>
 
-        <div className="flex items-center">
-          <SearchBox
-            placeholder={"Search users..."}
-            type={"text"}
-            value={searchText}
-            handleChange={handleChange}
-            handleClick={handleClick}
-          />
-        </div>
+        <div className="flex gap-4">
+          <div className="flex flex-col w-1/2 gap-4 items-center">
+            <SearchBox
+              placeholder={"Search users..."}
+              type={"text"}
+              value={searchText}
+              handleChange={handleChange}
+              handleClick={handleClick}
+            />
 
-        <div className="flex flex-col gap-1 py-4">
-          {userList.map((user) => (
-            <ListItem key={user._id} user={user} />
-          ))}
+            <div className="flex flex-col gap-1 py-4 w-full">
+              {userList.map((user) => (
+                <ListItem key={user._id} user={user} />
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col w-1/2 gap-4">
+            <h1 className="font-bold text-4xl underline">Transactions</h1>
+            <div className="flex flex-col gap-1 py-4">
+              {userList.map((user) => (
+                <ListItem key={user._id} user={user} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -152,17 +152,60 @@ const transferFunds = async (req, res) => {
 
 const getTransactionHistory = async (req, res) => {
   try {
+    const userId = req.userId; // Assuming `req.userId` contains the user's `_id`
+    console.log("userId", userId);
+    
+    const objectId = new mongoose.Types.ObjectId(userId);
+
     const transactions = await Transaction.aggregate([
       {
-        $lookup: {
-          from: "users", // collection name to join with
-          localField: "receiver", // field in trnansaction collection to match with
-          foreignField: "_id", // field in users collection to match with
-          as: "receiverDetails", // output array field for receiver details
+        $match: {
+          $or: [
+            { receiverId: objectId },
+            { senderId: objectId },
+          ],
         },
       },
       {
-        $unwind: "$receiverDetails",
+        $addFields: {
+          transactionType: {
+            $cond: [
+              { $eq: ["$receiverId", objectId] },
+              "credit",
+              "debit",
+            ],
+          },
+        },
+      },
+      // Lookup receiver details
+      {
+        $lookup: {
+          from: "users",
+          localField: "receiverId",
+          foreignField: "_id",
+          as: "receiverDetails",
+        },
+      },
+      {
+        $unwind: {
+          path: "$receiverDetails",
+          preserveNullAndEmptyArrays: true, // ✅ Important for robustness
+        },
+      },
+      // Lookup sender details
+      {
+        $lookup: {
+          from: "users",
+          localField: "senderId",
+          foreignField: "_id",
+          as: "senderDetails",
+        },
+      },
+      {
+        $unwind: {
+          path: "$senderDetails",
+          preserveNullAndEmptyArrays: true, // ✅ Important for robustness
+        },
       },
       {
         $project: {
@@ -176,9 +219,15 @@ const getTransactionHistory = async (req, res) => {
             lastName: 1,
             email: 1,
           },
+          senderDetails: {
+            firstName: 1,
+            lastName: 1,
+            email: 1,
+          },
         },
       },
     ]);
+    
 
     return res.status(200).json({
       transactions,
