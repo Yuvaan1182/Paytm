@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getWithExpiry } from "../utility/utility";
+import { createSlice } from '@reduxjs/toolkit';
+import { getWithExpiry } from '../utility/utility';
 
 const initialState = {
-  balance: getWithExpiry("balance") || 0,
+  balance: getWithExpiry('balance') || 0,
 };
 
 const balanceSlice = createSlice({
-  name: "balance",
+  name: 'balance',
   initialState,
   reducers: {
     setBalance: (state, action) => {

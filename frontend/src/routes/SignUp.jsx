@@ -1,57 +1,55 @@
-import Heading from "../components/Heading";
-import SubHeading from "../components/SubHeading";
-import InputBox from "../components/InputBox";
-import Button from "../components/Button";
-import BottomWarning from "../components/BottomWarning";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { registerUser } from "../features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import Heading from '../components/Heading';
+import SubHeading from '../components/SubHeading';
+import InputBox from '../components/InputBox';
+import Button from '../components/Button';
+import BottomWarning from '../components/BottomWarning';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { registerUser } from '../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function SignUp() {
-  const { loading, isAuthenticated } = useSelector(
-    (state) => state.auth
-  );
-  
+  const { loading, isAuthenticated } = useSelector(state => state.auth);
+
   const dispatch = useDispatch();
   const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
   });
 
   const navigate = useNavigate();
   useEffect(() => {
     if (isAuthenticated) {
-      toast.success("User Created Successfully");
-      navigate("/dashboard");
+      toast.success('User Created Successfully');
+      navigate('/dashboard');
     }
   }, [isAuthenticated, navigate]);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
-    setUser((prevUser) => ({
+    setUser(prevUser => ({
       ...prevUser,
       [name]: value,
     }));
   };
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     e.preventDefault();
     dispatch(registerUser(user));
     setUser({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
     });
   };
 
   return (
-    <div className="h-full flex items-center justify-center">
-      <div className="w-80 shadow-lg p-4 bg-white-400 flex flex-col items-center rounded-sm">
+    <div className="flex h-full items-center justify-center">
+      <div className="bg-white-400 flex w-80 flex-col items-center rounded-sm p-4 shadow-lg">
         <Heading label="Sign Up" />
         <SubHeading label="Enter Your information to create an account" />
         <div className="w-full py-2">
@@ -90,7 +88,7 @@ function SignUp() {
         </div>
         <div className="w-full py-2">
           <Button
-            label={loading ? "Loading..." : "Register"}
+            label={loading ? 'Loading...' : 'Register'}
             type="submit"
             color="blue"
             handleClick={handleClick}
@@ -98,11 +96,7 @@ function SignUp() {
           />
         </div>
         <div className="w-full py-2 text-right">
-          <BottomWarning
-            warningText="Already have an account?"
-            to="/login"
-            label="Login"
-          />
+          <BottomWarning warningText="Already have an account?" to="/login" label="Login" />
         </div>
       </div>
     </div>

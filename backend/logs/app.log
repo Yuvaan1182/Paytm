@@ -20,3 +20,55 @@
 2025-04-11T13:44:32.449Z [INFO]: Server started on PORT: 3000
 2025-04-11T13:44:33.044Z [INFO]: ✅ MongoDB Atlas connected successfully
 2025-04-11T13:44:33.229Z [INFO]: ✅ Transaction indexes synced successfully
+2025-04-11T13:45:04.540Z [INFO]: Server started on PORT: 3000
+2025-04-11T13:45:05.114Z [INFO]: ✅ MongoDB Atlas connected successfully
+2025-04-11T13:45:05.279Z [INFO]: ✅ Transaction indexes synced successfully
+2025-04-15T05:00:54.303Z [INFO]: Server started on PORT: 3000
+2025-04-15T05:01:24.437Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-04-15T05:07:31.439Z [INFO]: Server started on PORT: 3000
+2025-04-15T05:07:31.897Z [INFO]: ✅ MongoDB Atlas connected successfully
+2025-04-15T05:07:32.034Z [INFO]: ✅ Transaction indexes synced successfully
+2025-04-15T05:11:49.261Z [INFO]: Inside signIn
+2025-04-16T10:29:03.223Z [INFO]: Inside signIn
+2025-04-16T11:37:12.230Z [INFO]: Inside signIn
+2025-04-16T12:42:20.033Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-16T12:42:32.748Z [INFO]: Inside signIn
+2025-04-16T16:30:34.593Z [INFO]: Inside signIn
+2025-04-16T17:15:26.509Z [INFO]: Inside signIn
+2025-04-16T17:43:39.229Z [INFO]: Inside signIn
+2025-04-16T18:44:10.131Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-16T18:44:29.968Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-16T18:44:40.508Z [INFO]: Inside signIn
+2025-04-17T06:05:48.395Z [INFO]: Inside signIn
+2025-04-17T06:07:44.603Z [INFO]: Inside signIn
+2025-04-17T09:31:04.753Z [INFO]: Inside signIn
+2025-04-17T10:38:41.301Z [INFO]: Inside signIn
+2025-04-17T11:39:47.896Z [INFO]: Inside signIn
+2025-04-17T11:40:17.916Z [ERROR]: Error occurred: E4030000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-17T11:40:26.816Z [INFO]: Inside signIn
+2025-04-17T11:40:56.817Z [ERROR]: Error occurred: E4030000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-17T11:43:39.369Z [INFO]: Server started on PORT: 3000
+2025-04-17T11:43:40.638Z [INFO]: ✅ MongoDB Atlas connected successfully
+2025-04-17T11:43:40.901Z [INFO]: ✅ Transaction indexes synced successfully
+2025-04-17T11:44:27.098Z [INFO]: Server started on PORT: 3000
+2025-04-17T11:44:28.093Z [INFO]: ✅ MongoDB Atlas connected successfully
+2025-04-17T11:44:28.338Z [INFO]: ✅ Transaction indexes synced successfully
+2025-04-17T16:57:43.835Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:02:30.383Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:02:33.113Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:02:34.997Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:02:38.237Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:03:24.692Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:04:05.225Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:07:02.226Z [INFO]: Server started on PORT: 3000
+2025-04-20T06:07:02.733Z [INFO]: ✅ MongoDB Atlas connected successfully
+2025-04-20T06:07:02.911Z [INFO]: ✅ Transaction indexes synced successfully

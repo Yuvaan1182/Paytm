@@ -1,17 +1,16 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 function InputBox({ label, type, value, placeholder, name, handleChange }) {
-  
   return (
     <div className="w-full pt-2">
-      <label className="w-full font-semibold text-sm" htmlFor={label}>
+      <label className="w-full text-sm font-semibold" htmlFor={label}>
         {label}
       </label>
       <input
-        className="w-full px-3 py-2 text-base border"
+        className="w-full px-4 py-3 rounded-lg shadow-lg bg-white text-black font-bold"
         type={type}
         value={value}
-        placeholder={placeholder}  
+        placeholder={placeholder}
         id={label}
         onChange={handleChange}
         name={name}

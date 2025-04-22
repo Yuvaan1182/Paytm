@@ -1,30 +1,30 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getUsers } from "../../apireq/user/user";
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getUsers } from '../../apireq/user/user';
+import { createSlice } from '@reduxjs/toolkit';
 
 export const fetchUserList = createAsyncThunk(
-  "account/fetchUserList",
+  'account/fetchUserList',
   async (filter, { rejectWithValue }) => {
     try {
       const response = await getUsers(filter);
       return response;
     } catch (error) {
-      return rejectWithValue(error.message || "Failed to fetch user list");
+      return rejectWithValue(error.message || 'Failed to fetch user list');
     }
   }
 );
 
 const dashboardSlice = createSlice({
-  name: "dashboard",
+  name: 'dashboard',
   initialState: {
     userList: [],
     loading: false,
     error: null,
   },
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchUserList.pending, (state) => {
+      .addCase(fetchUserList.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -35,7 +35,7 @@ const dashboardSlice = createSlice({
       })
       .addCase(fetchUserList.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "User Not Found";
+        state.error = action.payload || 'User Not Found';
         state.userList = [];
       });
   },

@@ -1,9 +1,9 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { transferFunds } from "../../apireq/accounts/account";
-import { toast } from "react-toastify";
-import { setBalance } from "../balance/balanceSlice";
-import { setWithExpiry } from "../utility/utility";
-import { errorHandler } from "../../components/ErrorHandler";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { transferFunds } from '../../apireq/accounts/account';
+import { toast } from 'react-toastify';
+import { setBalance } from '../balance/balanceSlice';
+import { setWithExpiry } from '../utility/utility';
+import { errorHandler } from '../../components/ErrorHandler';
 
 const initialState = {
   accountDetails: null,
@@ -12,37 +12,35 @@ const initialState = {
 };
 
 export const updateBalance = createAsyncThunk(
-  "account/updateBalance",
+  'account/updateBalance',
   async (transfer, { rejectWithValue, dispatch }) => {
     try {
       const data = await transferFunds(transfer);
       // Update balance state
-      dispatch(setBalance(data.balance)); 
-      setWithExpiry ("balance", data.balance, 1000 * 60 * 60); // 1 hour
+      dispatch(setBalance(data.balance));
+      setWithExpiry('balance', data.balance, 1000 * 60 * 60); // 1 hour
       return data;
     } catch (error) {
       errorHandler(error);
-      return rejectWithValue(error.message || "Failed to update balance");
+      return rejectWithValue(error.message || 'Failed to update balance');
     }
   }
 );
 
-
-
 const accountSlice = createSlice({
-  name: "account",
+  name: 'account',
   initialState,
   reducers: {
-    resetAccountState: (state) => {
+    resetAccountState: state => {
       state.accountDetails = null;
       state.balance = 0;
       state.loading = false;
       state.error = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(updateBalance.pending, (state) => {
+      .addCase(updateBalance.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -54,8 +52,8 @@ const accountSlice = createSlice({
       .addCase(updateBalance.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        errorHandler(action.payload || "Failed to transfer funds");
-      })
+        errorHandler(action.payload || 'Failed to transfer funds');
+      });
   },
 });
 

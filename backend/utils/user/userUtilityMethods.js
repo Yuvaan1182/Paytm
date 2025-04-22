@@ -61,9 +61,7 @@ const userSignup = async (req, res) => {
   }
 };
 
-const userSignin = async (req, res) => {
-  logger.info("Inside signIn");
-  
+const userSignin = async (req, res) => {  
   try {
     const { success } = signInbody.safeParse(req.body);
 

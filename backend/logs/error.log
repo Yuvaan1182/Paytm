@@ -1,0 +1,22 @@
+2025-04-15T05:01:24.437Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-04-16T12:42:20.033Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-16T18:44:10.131Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-16T18:44:29.968Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-17T11:40:17.916Z [ERROR]: Error occurred: E4030000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-17T11:40:56.817Z [ERROR]: Error occurred: E4030000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-17T16:57:43.835Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:02:30.383Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:02:33.113Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:02:34.997Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:02:38.237Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:03:24.692Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-04-20T06:04:05.225Z [ERROR]: Error occurred: AC130000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
