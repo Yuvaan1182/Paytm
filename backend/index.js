@@ -3,9 +3,12 @@ const cors = require("cors");
 require("dotenv").config();
 const app = express();
 const logger = require("./utils/logger"); // Import logger
+const passport = require('./config/passport'); // Import passport
 
 app.use(cors({ origin: process.env.REACT_APP_URI }));
 app.use(express.json());
+
+app.use(passport.initialize()); // Remove passport.session()
 
 const apiLimiter = require("./middlewares/rateLimiter");
 

@@ -6,7 +6,7 @@ const BASE_URL = import.meta.env.VITE_BASE_DEV_URL || 'http://localhost:3000'; /
 
 export const userSignup = async user => {
   try {
-    const response = await axios.post(`${BASE_URL}/api/v1/user/signup`, user, {
+    const response = await axios.post(`${BASE_URL}/api/v1/auth/register`, user, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -28,7 +28,7 @@ export const userSignup = async user => {
 
 export const userSignin = async user => {
   try {
-    const response = await axios.post(`${BASE_URL}/api/v1/user/signin`, user, {
+    const response = await axios.post(`${BASE_URL}/api/v1/auth/login`, user, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -67,6 +67,58 @@ export const getUsers = async filter => {
     }
 
     const response = await axios.get(`${BASE_URL}/api/v1/user/bulk?filter=${filter}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    errorHandler(error);
+
+    if (error.response) {
+      return Promise.reject(error.response.data);
+    }
+    return Promise.reject({ message: 'An unknown error occurred' });
+  }
+};
+
+export const getUserData = async () => {
+  try {
+    const token = getWithExpiry('token');
+
+    if (!token) {
+      errorHandler('Authentication Failed, Please login to access this feature.');
+    }
+
+    const response = await axios.get(`${BASE_URL}/api/v1/user/`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    errorHandler(error);
+
+    if (error.response) {
+      return Promise.reject(error.response.data);
+    }
+    return Promise.reject({ message: 'An unknown error occurred' });
+  }
+};
+
+export const getBalance = async () => {
+  try {
+    const token = getWithExpiry('token');
+
+    if (!token) {
+      errorHandler('Authentication Failed, Please login to access this feature.');
+    }
+
+    const response = await axios.get(`${BASE_URL}/api/v1/account/balance`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,

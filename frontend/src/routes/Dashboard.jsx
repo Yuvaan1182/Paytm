@@ -1,10 +1,5 @@
-import NavOptions from '../components/NavOptions';
-import SearchBox from '../components/SearchBox';
-import ListItem from '../components/ListItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { fetchUserList } from '../features/dashboard/dashboardSlice';
-import { LuLogOut } from 'react-icons/lu';
 import { logout } from '../features/auth/authSlice';
 import ProgressBar from '../components/ProgressBar';
 import {
@@ -16,7 +11,6 @@ import {
   IndianRupee,
   ListFilter,
   Plus,
-  Search,
 } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
 import Table from '../components/Table';
@@ -26,38 +20,23 @@ import CashFlow from '../components/CashFlow';
 
 function Dashboard() {
   const { balance } = useSelector(state => state.balance);
-  const [searchText, setSearchText] = useState('');
   const [loading, setLoading] = useState(true); // Add loading state
   const { isAuthenticated } = useSelector(state => state.auth);
   const userList = useSelector(state => state.dashboard.userList);
 
-  const handleChange = e => {
-    const { value } = e.target;
-    setSearchText(value);
-  };
+  
 
   const dispatch = useDispatch();
 
-  const handleKeyDown = e => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      const value = e.target.value; // Get the current input value
-      setSearchText(value); // Update the state
-      setLoading(true); // Set loading to true
-      dispatch(fetchUserList(value)) // Use the current input value directly
-        .finally(() => setLoading(false));
-    }
-  };
+  
 
   useEffect(() => {
     console.log('users', userList);
-  }, [userList]);
+  }, [userList, dispatch]);
 
   useEffect(() => {
-    setLoading(false); // Ensure loading is reset on component mount
+    setLoading(false);
     if (!isAuthenticated) {
-      // Check if user is authenticated
-      // If not authenticated, redirect to login or perform logout
       dispatch(logout());
     }
   }, [isAuthenticated, dispatch]);
@@ -202,19 +181,6 @@ function Dashboard() {
 
   return (
     <div className="flex h-full flex-col gap-4 pb-6">
-      <div className="relative w-full">
-        <input
-          type="text"
-          placeholder="Search"
-          className="peer w-full rounded-md border-2 border-gray-300 px-4 py-2 text-gray-500 transition duration-200 ease-in-out focus:border-rose-500 focus:outline-none"
-          onKeyDown={handleKeyDown}
-          onChange={handleChange}
-          value={searchText}
-        />
-        <span className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 peer-focus:hidden">
-          <Search size={18} />
-        </span>
-      </div>
       <div className="flex items-center justify-between gap-4 rounded-lg bg-pink-700 px-8 py-6 text-white">
         <div className="flex flex-col gap-3">
           <div className="text-gray-100">Total Balance</div>

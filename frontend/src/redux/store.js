@@ -6,6 +6,7 @@ import balanceReducer from '../features/balance/balanceSlice';
 import progressReducer from '../features/progressbar/progressSlice';
 import themeReducer from '../features/theme/themeSlice';
 import uiReducer from '../features/ui/uiSlice';
+import profileReducer from '../features/profile/profileSlice'
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     dashboard: dashboardReducer,
     balance: balanceReducer,
     progress: progressReducer,
+    profile: profileReducer,
     theme: themeReducer,
     ui: uiReducer,
   },

@@ -1,5 +1,5 @@
 const express = require('express');
-const { authMiddleWare } = require('../middlewares/auth');
+const { authMiddleWare } = require('../middlewares/authMiddleware');
 const { getUserBalance, transferFunds, getTransactionHistory } = require('../utils/account/accountUtilityMethods');
 // const transferLockMiddleware = require('../middlewares/transferLockMiddleware');
 

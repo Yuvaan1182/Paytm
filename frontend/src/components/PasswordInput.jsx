@@ -33,7 +33,7 @@ function PasswordInput({ label, placeholder, value, name, handleChange }) {
   }, [value]);
 
   return (
-    <div className="relative">
+    <div className="relative w-96">
       <label className="sr-only" htmlFor={name}>
         {label}
       </label>
@@ -45,7 +45,7 @@ function PasswordInput({ label, placeholder, value, name, handleChange }) {
         name={name}
         onChange={handleChange}
         maxLength={30} // Limit password to 30 characters
-        className={`w-full rounded-lg px-4 py-3 font-bold text-black shadow-lg focus:border-2 bg-white ${
+        className={`w-full rounded-lg px-4 py-3 font-bold text-black shadow-lg border bg-white ${
           passwordStrength === 'Weak'
             ? 'focus:outline-red-700'
             : passwordStrength === 'Strong'

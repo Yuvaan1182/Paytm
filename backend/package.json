@@ -18,6 +18,8 @@
     "express-rate-limit": "^7.5.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "redis": "^4.7.0",
     "winston": "^3.17.0",
     "zod": "^3.22.4"
