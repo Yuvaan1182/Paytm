@@ -33,8 +33,8 @@ const transferFunds = async (req, res) => {
 
   /** Start Transaction */
   session.startTransaction();
-  
-  const { to, amount } = req.body;
+
+  const { to, amount, category } = req.body;
   const receiver = to;
   const sender = req.userId;
 
@@ -43,6 +43,7 @@ const transferFunds = async (req, res) => {
       receiverId: receiver,
       senderId: sender,
       amount: amount,
+      category: category,
       transactionType: "debit",
       statusHistory: [{ status: "pending" }],
     });
@@ -131,6 +132,7 @@ const transferFunds = async (req, res) => {
       receiverId: receiver,
       amount: amount,
       transactionType: "debit",
+      category: category,
       statusHistory: [
         { status: "pending" },
         { status: "failed", timestamp: new Date() },
@@ -154,7 +156,7 @@ const getTransactionHistory = async (req, res) => {
   try {
     const userId = req.userId; // Assuming `req.userId` contains the user's `_id`
     console.log("userId", userId);
-    
+
     const objectId = new mongoose.Types.ObjectId(userId);
 
     const transactions = await Transaction.aggregate([
@@ -214,6 +216,7 @@ const getTransactionHistory = async (req, res) => {
           transactionType: 1,
           statusHistory: 1,
           createdAt: 1,
+          category: 1,
           receiverDetails: {
             firstName: 1,
             lastName: 1,
@@ -227,7 +230,7 @@ const getTransactionHistory = async (req, res) => {
         },
       },
     ]);
-    
+
 
     return res.status(200).json({
       transactions,

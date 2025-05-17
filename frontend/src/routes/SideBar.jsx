@@ -1,19 +1,18 @@
-import { NavLink } from 'react-router-dom';
 import {
   ArrowRightLeft,
-  Settings,
-  Menu,
-  Sun,
-  Moon,
-  IndianRupee,
   CircleUserRound,
   LayoutDashboard,
+  Menu,
+  Moon,
   NotebookTabs,
+  Settings,
+  Sun,
 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleTheme } from '../features/theme/themeSlice';
-import { logout } from '../features/auth/authSlice';
+import { NavLink } from 'react-router-dom';
 import GlassCard from '../components/GlassCard';
+import { logout } from '../features/auth/authSlice';
+import { toggleTheme } from '../features/theme/themeSlice';
 import { toggleSidebar } from '../features/ui/uiSlice';
 
 const navItems = [
@@ -43,11 +42,9 @@ export default function Sidebar() {
   const { isAuthenticated } = useSelector(state => state.auth);
 
   const toggleMenu = () => {
-    console.log('I got clicked', collapsed);
-    console.log('ui staet', uiState);
-
     dispatch(toggleSidebar(!collapsed));
   };
+
   return (
     isAuthenticated && (
       <GlassCard
@@ -57,9 +54,8 @@ export default function Sidebar() {
       >
         <div className="flex items-center justify-between border-b border-gray-300 p-4">
           {!collapsed && (
-            <div className="flex text-lg font-bold text-rose-700 transition-all duration-400 uppercase">
-              <IndianRupee />
-              Velora
+            <div className="flex text-lg font-bold text-rose-700 uppercase transition-all duration-400">
+              ₹ Velora
             </div>
           )}
           <button

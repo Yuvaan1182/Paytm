@@ -1,9 +1,9 @@
-import InputBox from './InputBox';
-import Button from './Button';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateBalance } from '../features/account/accountSlice';
 import { useLocation } from 'react-router-dom';
+import { updateBalance } from '../features/account/accountSlice';
+import Button from './Button';
+import InputBox from './InputBox';
 
 export default function Modal() {
   const location = useLocation();
@@ -49,7 +49,7 @@ export default function Modal() {
               label={'Amount (in Rs)'}
               placeholder={'Enter Amount'}
               type={'text'}
-              value={amount.toString()} // Ensure value is a string
+              value={amount.toString()}
               handleChange={handleChange}
               name={'amount'}
             />

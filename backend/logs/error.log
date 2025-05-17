@@ -8,3 +8,38 @@
 2025-04-30T23:15:34.549Z [ERROR]: Error in Authentication:  jwt malformed
 2025-04-30T23:15:34.561Z [ERROR]: Error in Authentication:  jwt malformed
 2025-04-30T23:15:34.573Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-02T20:46:44.403Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-02T20:46:44.415Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-02T20:46:44.418Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-02T20:46:44.423Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-03T06:15:18.468Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-03T06:15:18.483Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-03T06:15:18.496Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-03T06:15:18.525Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T07:00:39.350Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T07:00:39.359Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T07:00:39.366Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T07:00:39.372Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T09:44:12.005Z [ERROR]: Error Occurred while Google Login/Signup 1C380000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-05-05T10:44:57.435Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-05T12:52:43.098Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T12:52:43.108Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T12:52:43.116Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T12:52:43.132Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:08.462Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:08.467Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:08.470Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:08.474Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:21.487Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:21.490Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:21.494Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:21.513Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-06T18:19:37.416Z [ERROR]: Error in transaction Transaction validation failed: category: Path `category` is required.
+2025-05-08T02:52:55.080Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-08T02:52:55.089Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-08T02:52:55.097Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-08T02:52:55.103Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-08T09:12:51.616Z [ERROR]: Error in transaction Transaction validation failed: receiverId: Path `receiverId` is required.
+2025-05-08T09:31:39.930Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-08T09:32:02.692Z [ERROR]: Error in Authentication:  jwt malformed

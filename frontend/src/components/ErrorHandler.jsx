@@ -24,6 +24,9 @@ export const errorHandler = (error, customMessage = '') => {
       case 404:
         toast.error('Resource Not Found!');
         break;
+      case 411:
+        toast.error('Invalid Email/Password');
+        break;
       case 500:
         toast.error('Internal Server Error. Please try again later.');
         break;

@@ -7,12 +7,34 @@ const transactionSchema = new mongoose.Schema(
             ref: 'User',
             required: true,
             index: true,
-        }, 
+        },
         receiverId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true,
             index: true,
+        },
+        category: {
+            type: String,
+            enum: [
+                    'food',
+                    'grocery',
+                    'electricity',
+                    'rent',
+                    'recharge',
+                    'credit_card',
+                    'travel',
+                    'health',
+                    'subscription',
+                    'shopping',
+                    'bills',
+                    'education',
+                    'transfer',
+                    'bank',
+                    'salary',
+                    'utilities'
+                ],
+            required: false
         },
         amount: {
             type: Number,
@@ -40,6 +62,7 @@ transactionSchema.index({ senderId: 1 }); // Queries related to sender
 transactionSchema.index({ receiverId: 1 }); // Queries related to receiver
 transactionSchema.index({ 'statusHistory.status': 1 }); // Queries by status
 transactionSchema.index({ createdAt: -1 }); // Sorting by latest transactions
+transactionSchema.index({ category: 1 });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);
 

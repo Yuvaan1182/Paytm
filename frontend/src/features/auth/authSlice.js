@@ -1,6 +1,6 @@
-import { getWithExpiry, removeLocalStorageItem, setWithExpiry } from '../utility/utility';
-import { userLogin, userRegistration } from '../thunks/thunks';
 import { createSlice } from '@reduxjs/toolkit';
+import { userLogin, userRegistration } from '../thunks/thunks';
+import { getWithExpiry, removeLocalStorageItem, setWithExpiry } from '../utility/utility';
 
 const initialState = {
   loading: false,
@@ -14,8 +14,6 @@ const authSlice = createSlice({
   reducers: {
     loginWithToken: (state, action) => {
       const token = action.payload;
-      console.log("token slice" , token);
-      
       setWithExpiry('token', token, 1000 * 60 * 60); // Save token with 1-hour expiry
       state.isAuthenticated = true;
     },
@@ -62,7 +60,7 @@ const authSlice = createSlice({
         if (token) {
           setWithExpiry('token', token, 1000 * 60 * 60); // 1 hour
         }
-        
+
         state.isAuthenticated = true;
       })
       .addCase(userRegistration.rejected, (state, action) => {

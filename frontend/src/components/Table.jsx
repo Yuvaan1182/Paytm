@@ -30,7 +30,7 @@ const Table = ({ data, className }) => {
           </div>
         ))}
       </div>
-      <div className="h-56">
+      <div className="h-56 overscroll-contain">
         {data.map((row, index) => (
           <div key={index} className="text-md flex text-gray-600 hover:bg-gray-50">
             {headers.map(header => (

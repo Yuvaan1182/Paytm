@@ -1,10 +1,10 @@
-import google from '../assets/images/google.png';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
 import { toast } from 'react-toastify';
+import google from '../assets/images/google.png';
 import { userRegistration } from '../features/thunks/thunks';
 
 const RegisterForm = () => {
@@ -138,17 +138,17 @@ const RegisterForm = () => {
       <button
         type="button"
         onClick={() => login()}
-        className="flex w-full items-center justify-center gap-4 rounded-lg bg-gray-200 px-4 py-2 font-serif tracking-wide shadow-lg hover:bg-gray-100"
+        className="flex items-center justify-center gap-4 rounded-lg bg-gray-200 p-4 font-serif tracking-wide shadow-lg hover:bg-gray-100"
       >
-        <img className="w-5" src={google} alt="Google" /> Sign up with Google
+        <img className="w-5" src={google} alt="Google" />
       </button>
-      <div className="flex w-96 items-center justify-center">
-        <p className="rounded-md bg-white/10 px-4 py-2 font-bold text-blue-500 backdrop-blur-sm hover:underline">
-          <Link to="/login">Sign in</Link>
+      <div className="flex w-full justify-start">
+        <p className="rounded-md py-2 font-semibold text-blue-500 hover:underline">
+          <Link to="/login">Login</Link>
         </p>
         <p className="cursor-pointer hover:underline"></p>
       </div>
-      <p className="font-sans text-gray-800">
+      <p className="font-sans text-sm text-gray-800">
         By clicking continue, you agree to our <br />
         <span className="font-semibold">Terms of Service</span> and{' '}
         <span className="font-bold">Privacy Policy</span>

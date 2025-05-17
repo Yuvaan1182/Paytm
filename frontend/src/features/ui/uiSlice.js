@@ -10,8 +10,6 @@ const uiSlice = createSlice({
   initialState,
   reducers: {
     toggleSidebar(state) {
-      console.log('toggle state', state.isSidebarOpen);
-
       state.isSidebarOpen = !state.isSidebarOpen;
     },
     setLoading(state, action) {

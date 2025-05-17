@@ -1,7 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+import tailwindScrollBarHide from 'tailwind-scrollbar-hide';
+
 export default {
   darkMode: 'class', // Enable dark mode using the 'class' strategy
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
+  plugins: [tailwindScrollBarHide],
   theme: {
     extend: {
       animation: {

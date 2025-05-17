@@ -1,10 +1,10 @@
-import google from '../assets/images/google.png';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
 import { toast } from 'react-toastify';
+import google from '../assets/images/google.png';
 import { userLogin } from '../features/thunks/thunks';
 
 const LoginForm = () => {
@@ -50,8 +50,6 @@ const LoginForm = () => {
 
   const handleLogin = e => {
     e.preventDefault();
-    console.log('Login button clicked');
-    
     dispatch(userLogin(user));
   };
 
@@ -74,7 +72,7 @@ const LoginForm = () => {
   return (
     <form className="flex w-96 flex-col items-center gap-4">
       <div className="text-center">
-        <div className="text-3xl font-extrabold tracking-wide text-gray-900">Welcome Back!!</div>
+        <div className="text-3xl font-bold tracking-wide text-gray-900">Login </div>
         <div className="max-w-80">Enter your email to login to this app.</div>
       </div>
       <div className="relative flex h-16 w-96 flex-col items-center justify-center">
@@ -135,17 +133,17 @@ const LoginForm = () => {
       <button
         onClick={() => login()}
         type="button"
-        className="flex w-full items-center justify-center gap-4 rounded-lg bg-gray-200 px-4 py-2 font-serif tracking-wide shadow-lg hover:bg-gray-100"
+        className="flex items-center justify-center gap-4 rounded-lg bg-gray-200 p-4 font-serif tracking-wide shadow-lg hover:bg-gray-100"
       >
-        <img className="w-5" src={google} alt="Google" /> Sign in with Google
+        <img className="w-5" src={google} alt="Google" />
       </button>
-      <div className="flex w-96 items-center justify-between">
-        <p className="rounded-md bg-white/10 px-4 py-2 font-bold text-blue-500 backdrop-blur-sm hover:underline">
-          <Link to="/register">Sign up</Link>
+      <div className="flex w-full items-center justify-between">
+        <p className="rounded-md bg-white/10 py-2 font-semibold text-blue-500 backdrop-blur-sm hover:underline">
+          <Link to="/register">Register</Link>
         </p>
         <p className="cursor-pointer hover:underline">Forgot Password?</p>
       </div>
-      <p className="font-sans text-gray-800">
+      <p className="font-sans text-sm text-gray-800">
         By clicking continue, you agree to our <br />
         <span className="font-semibold">Terms of Service</span> and{' '}
         <span className="font-bold">Privacy Policy</span>

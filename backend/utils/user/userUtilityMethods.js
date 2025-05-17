@@ -13,6 +13,7 @@ const {
 const userSignup = async (req, res) => {
   try {
     const { success } = signUpbody.safeParse(req.body);
+    console.log("user signin", req.body);
 
     /** Checking input format of request */
     if (!success) {
@@ -120,7 +121,7 @@ const getUsers = async (req, res) => {
     const filter = req.query.filter || "";
 
     const users = await User.find({
-      $or: [{ firstName: filter }, { lastName: filter }],
+      $or: [{ firstName: filter }, { lastName: filter }, {email: filter}],
     });
 
     return res.status(200).json({
@@ -169,7 +170,7 @@ const updateUser = async (req, res) => {
 const getUserData = async (req, res) => {
   const userId = req.userId;
   console.log("userId get data", userId);
-  
+
   const user = await User.findOne({
     _id: userId,
   });
@@ -177,11 +178,11 @@ const getUserData = async (req, res) => {
   const data = {
     email: user?.email || null,
     firstName: user?.firstName || null,
-    lastName: user?.lastName || null 
+    lastName: user?.lastName || null
   }
 
   console.log("user", user);
-  console.log("data", data);  
+  console.log("data", data);
 
   return res.status(200).json({ data: data });
 };

@@ -16,7 +16,7 @@ export const userSignup = async user => {
 
     return response.data;
   } catch (error) {
-    errorHandler(error);
+    errorHandler(error, 'Error Wohile Signup');
 
     // Return the error response so it can be handled in the calling code
     if (error.response) {
@@ -35,7 +35,7 @@ export const userSignin = async user => {
     });
     return response.data;
   } catch (error) {
-    errorHandler(error);
+    errorHandler(error, 'Error while Login');
 
     if (error.response) {
       return Promise.reject(error.response.data);

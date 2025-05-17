@@ -11,6 +11,7 @@ export const transferFunds = async transfer => {
       errorHandler('User not authenticated. Please log in.');
       return;
     }
+
     const response = await axios.post(`${BASE_URL}/api/v1/account/transfer`, transfer, {
       headers: {
         'Content-Type': 'application/json',

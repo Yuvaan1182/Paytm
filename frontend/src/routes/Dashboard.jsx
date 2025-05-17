@@ -1,7 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
-import { logout } from '../features/auth/authSlice';
-import ProgressBar from '../components/ProgressBar';
 import {
   Activity,
   ArrowUp,
@@ -12,11 +8,15 @@ import {
   ListFilter,
   Plus,
 } from 'lucide-react';
-import GlassCard from '../components/GlassCard';
-import Table from '../components/Table';
-import TransactionStatusAnalysis from '../components/TransactionStatusAnalysis';
-import TopSpendingUsers from '../components/TopSpendingUsers';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CashFlow from '../components/CashFlow';
+import GlassCard from '../components/GlassCard';
+import ProgressBar from '../components/ProgressBar';
+import Table from '../components/Table';
+import TopSpendingUsers from '../components/TopSpendingUsers';
+import TransactionStatusAnalysis from '../components/TransactionStatusAnalysis';
+import { logout } from '../features/auth/authSlice';
 
 function Dashboard() {
   const { balance } = useSelector(state => state.balance);
@@ -24,11 +24,7 @@ function Dashboard() {
   const { isAuthenticated } = useSelector(state => state.auth);
   const userList = useSelector(state => state.dashboard.userList);
 
-  
-
   const dispatch = useDispatch();
-
-  
 
   useEffect(() => {
     console.log('users', userList);
@@ -175,8 +171,8 @@ function Dashboard() {
     },
   ];
 
-  if(loading) {
-    return <ProgressBar />
+  if (loading) {
+    return <ProgressBar />;
   }
 
   return (

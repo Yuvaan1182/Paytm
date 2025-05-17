@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getBalance, getUserData, userSignin, userSignup } from '../../apireq/user/user';
+import { errorHandler } from '../../components/ErrorHandler';
 
 export const userRegistration = createAsyncThunk(
   'auth/register',
@@ -9,8 +10,9 @@ export const userRegistration = createAsyncThunk(
 
       return response;
     } catch (error) {
-      console.log('Error during signup:', error);
-      return rejectWithValue(error?.message || 'SignUp failed');
+      const errMsg = error.response?.data?.message || 'Signup Failed';
+      errorHandler(errMsg);
+      return rejectWithValue(errMsg);
     }
   }
 );
@@ -20,7 +22,9 @@ export const userLogin = createAsyncThunk('auth/login', async (user, { rejectWit
     const response = await userSignin(user);
     return response;
   } catch (error) {
-    return rejectWithValue(error.response?.data?.message || 'Login failed');
+    const errMsg = error.response?.data?.message || 'Login failed';
+    errorHandler(errMsg);
+    return rejectWithValue(errMsg);
   }
 });
 
@@ -37,13 +41,13 @@ export const userProfile = createAsyncThunk(
 );
 
 export const getUserBalance = createAsyncThunk(
-    'balance/userBalance',
-    async (user, { rejectWithValue }) => {
-      try {
-        const response = await getBalance();
-        return response;
-      } catch (error) {
-        return rejectWithValue(error.response?.data?.message || 'Login failed');
-      }
+  'balance/userBalance',
+  async (user, { rejectWithValue }) => {
+    try {
+      const response = await getBalance();
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Login failed');
     }
-  );
+  }
+);
