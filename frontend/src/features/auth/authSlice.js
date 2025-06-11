@@ -25,6 +25,7 @@ const authSlice = createSlice({
       removeLocalStorageItem('token');
       removeLocalStorageItem('balance');
       removeLocalStorageItem('theme');
+      removeLocalStorageItem('summary');
       window.location.href = '/login';
     },
   },
@@ -37,7 +38,6 @@ const authSlice = createSlice({
       .addCase(userLogin.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-
         const token = action.payload.token;
         setWithExpiry('token', token, 1000 * 60 * 60); // 1 hour
         state.isAuthenticated = true;
@@ -72,5 +72,4 @@ const authSlice = createSlice({
 });
 
 export const { loginWithToken, logout } = authSlice.actions;
-
 export default authSlice.reducer;

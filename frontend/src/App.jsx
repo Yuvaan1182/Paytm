@@ -10,8 +10,8 @@ import Analytics from './routes/Analytics';
 import AppLayout from './routes/AppLayout';
 import Dashboard from './routes/Dashboard';
 import Payments from './routes/Payments';
-import SendMoney from './routes/SendMoney';
 import Transactions from './routes/Transactions.';
+import Profile from './components/Profile';
 
 function App() {
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ function App() {
               <Route path="transfer" element={<Payments />} />
               <Route path="analytics" element={<Analytics />} />
               <Route path="transaction" element={<Transactions />} />
-              <Route path="settings" element={<SendMoney />} />
+              {/* <Route path="settings" element={<Profile />} /> */}
             </Route>
           </Routes>
         </Router>

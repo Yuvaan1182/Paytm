@@ -1,25 +1,22 @@
-import { ClockFading, Search } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { MdArrowLeft, MdArrowRight } from 'react-icons/md';
+import { Search } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { categories } from '../assets/tests/categories';
-import CategoryTag from '../components/CategoryTag';
 import DropDownView from '../components/DropDownView';
 import GlassCard from '../components/GlassCard';
-import { updateBalance } from '../features/account/accountSlice';
-import { fetchUserList } from '../features/dashboard/dashboardSlice';
+import { updateSearchState } from '../features/payer/payerSlice';
+import { fetchUserList, updateBalance } from '../features/thunks/thunks';
 import { setLoading } from '../features/ui/uiSlice';
 
 const Payments = () => {
   const dispatch = useDispatch();
   const [searchText, setSearchText] = useState('');
-  const { user } = useSelector(state => state.profile);
   const [selectedUser, setSelectedUser] = useState(null);
   const [amount, setAmount] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const { userList, loading, error } = useSelector(state => state.dashboard);
-  const [searchResText, setSearchResText] = useState('Hit Enter To Get Search Results');
-
+  const payers = useSelector(state => state.payers);
+  const [searchResText, setSearchResText] = useState('');
+  const { loading, userList, search } = payers;
   const handleChange = e => {
     const { value } = e.target;
     setSearchText(value);
@@ -53,19 +50,19 @@ const Payments = () => {
     setSelectedUser(user);
   };
 
-  const scrollRef = useRef(null);
+  //   const scrollRef = useRef(null);
 
-  const scroll = direction => {
-    const { current } = scrollRef;
-    if (!current) return;
+  //   const scroll = direction => {
+  //     const { current } = scrollRef;
+  //     if (!current) return;
 
-    const scrollAmount = 250; // pixels per click
-    if (direction === 'left') {
-      current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    } else {
-      current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
+  //     const scrollAmount = 250; // pixels per click
+  //     if (direction === 'left') {
+  //       current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  //     } else {
+  //       current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  //     }
+  //   };
 
   const handleSelect = val => {
     setSelectedCategory(val);
@@ -76,17 +73,24 @@ const Payments = () => {
     : 'No User Selected';
 
   useEffect(() => {
-    if (userList.length === 0) {
-      setSearchResText('User Not Found');
+    if (!search) {
+      setSearchResText('Search for a user');
+    } else {
+      if (userList.length === 0) {
+        setSearchResText('No such user found.');
+        dispatch(updateSearchState(false));
+      }
     }
-  }, [userList]);
+  }, [search, userList, dispatch]);
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="p-4 text-4xl shadow-sm dark:text-white">Payments</div>
-      <div className="flex flex-col gap-5">
-        <div className="flex gap-5">
-          <GlassCard className="flex flex-1/3 flex-col gap-5 p-4">
+    <div className="flex h-full flex-col gap-5">
+      <div className="rounded-md p-4 text-4xl shadow-sm dark:text-white dark:shadow-gray-700">
+        Payments
+      </div>
+      <div className="flex flex-1 flex-col gap-5">
+        <div className="flex h-full gap-5">
+          <GlassCard className="flex w-1/3 flex-col gap-5 p-4">
             <div className="border-b text-3xl text-pink-700">Search</div>
             <div className="relative">
               <div className="">
@@ -104,7 +108,7 @@ const Payments = () => {
               </span>
             </div>
             <div className="border-green flex flex-col gap-5">
-              <div className="flex h-[300px] flex-col gap-2 overflow-y-auto px-2 py-1">
+              <div className="flex h-full flex-col gap-2 overflow-y-auto px-2 py-1">
                 {loading && <div>Loading...</div>}
                 {userList.length === 0 ? (
                   <div className="flex items-center text-xl dark:text-gray-300">
@@ -134,48 +138,46 @@ const Payments = () => {
               </div>
             </div>
           </GlassCard>
-          <GlassCard className="flex flex-2/3 flex-col items-center gap-5 p-4">
-            <div className="flex w-2/3 flex-col gap-5">
-              <div className="bg-gradient-to-r from-rose-700 to-gray-900 bg-clip-text py-4 text-8xl font-bold text-transparent underline">
-                Velora Pay
+          {selectedUser && (
+            <GlassCard className="flex h-full w-2/3 flex-col items-center gap-5 p-4 dark:bg-gray-700">
+              <div className="mb-auto flex h-full w-2/3 flex-col items-center justify-center gap-5">
+                <div className="place-items-center bg-gradient-to-r from-rose-700 to-gray-900 bg-clip-text py-4 text-8xl font-bold text-transparent underline">
+                  Velora Pay
+                </div>
+                <div className="flex w-full items-center gap-10 font-bold text-gray-700">
+                  <div className="bg-red text-700-200 flex h-24 w-24 items-center justify-center rounded-full text-5xl font-bold text-rose-600 shadow-xs inset-shadow-sm inset-shadow-gray-400 text-shadow-md dark:shadow-gray-400 dark:inset-shadow-gray-700">
+                    {fullName[0].toUpperCase()}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <div className="text-3xl capitalize dark:text-white">{fullName}</div>
+                    <div>{selectedUser?.email}</div>
+                  </div>
+                  <div className="ml-auto">
+                    <span className="bg-gray-200">
+                      <DropDownView label="Category" options={categories} onSelect={handleSelect} />
+                    </span>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  value={amount}
+                  onChange={e => handleAmount(e)}
+                  placeholder="Enter Amount"
+                  className={`w-full rounded-md p-4 text-2xl outline-2 outline-gray-600 focus:outline-red-600 ${selectedUser === null ? 'cursor-not-allowed' : ''} dark:text-gray-100 dark:placeholder:text-gray-300`}
+                  disabled={selectedUser === null ? true : false}
+                />
+                <button
+                  onClick={e => transferMoney(e)}
+                  className={`flex w-full items-center justify-center rounded-lg ${selectedUser === null ? 'cursor-not-allowed bg-gray-500' : 'bg-gradient-to-r from-rose-700 to-gray-900'} py-4 text-2xl text-white transition-colors duration-300 hover:from-gray-700 hover:to-rose-700`}
+                  disabled={selectedUser === null}
+                >
+                  Initiate Transfer
+                </button>
               </div>
-              <div className="flex w-full items-center gap-10 font-bold text-gray-700">
-                <div className="bg-red text-700-200 flex h-24 w-24 items-center justify-center rounded-full text-5xl font-bold text-rose-600 shadow-xs inset-shadow-sm inset-shadow-gray-400 text-shadow-md dark:shadow-gray-400 dark:inset-shadow-gray-700">
-                  {fullName[0].toUpperCase()}
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div className="text-3xl capitalize dark:text-white">{fullName}</div>
-                  <div>{selectedUser?.email}</div>
-                </div>
-                <div className="ml-auto">
-                  <span className="bg-gray-200">
-                    <DropDownView
-                      label="Select Category"
-                      options={categories}
-                      onSelect={handleSelect}
-                    />
-                  </span>
-                </div>
-              </div>
-              <input
-                type="text"
-                value={amount}
-                onChange={e => handleAmount(e)}
-                placeholder="Enter Amount"
-                className={`w-full rounded-md p-4 text-2xl outline-2 outline-gray-600 focus:outline-red-600 ${selectedUser === null ? 'cursor-not-allowed' : ''} dark:text-gray-100 dark:placeholder:text-gray-300`}
-                disabled={selectedUser === null ? true : false}
-              />
-              <button
-                onClick={e => transferMoney(e)}
-                className={`flex w-full items-center justify-center rounded-lg ${selectedUser === null ? 'cursor-not-allowed bg-gray-500' : 'bg-gradient-to-r from-rose-700 to-gray-900'} py-4 text-2xl text-white transition-colors duration-300 hover:from-gray-700 hover:to-rose-700`}
-                disabled={selectedUser === null}
-              >
-                Initiate Transfer
-              </button>
-            </div>
-          </GlassCard>
+            </GlassCard>
+          )}
         </div>
-        <GlassCard className="flex flex-col p-4">
+        {/* <GlassCard className="flex flex-col p-4">
           <div className="flex flex-1 flex-col">
             <div className="flex items-center gap-3 px-4 py-2 text-2xl text-gray-700">
               <span>
@@ -217,7 +219,7 @@ const Payments = () => {
               <MdArrowRight size={40} />
             </div>
           </div>
-        </GlassCard>
+        </GlassCard> */}
       </div>
     </div>
   );

@@ -14,10 +14,10 @@ const authMiddleWare = (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
 
-    const decoded = jwt.verify(token, JWT_SECRET);    
+    const decoded = jwt.verify(token, JWT_SECRET);
 
     req.userId = decoded.userId;
-    
+
     next();
   } catch (error) {
     logger.error("Error in Authentication: ", error);

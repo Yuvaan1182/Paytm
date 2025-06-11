@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { updateBalance } from '../features/account/accountSlice';
+import { updateBalance } from '../features/thunks/thunks';
 import Button from './Button';
 import InputBox from './InputBox';
 

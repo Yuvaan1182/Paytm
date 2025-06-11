@@ -27,7 +27,7 @@ const navItems = [
     icon: <ArrowRightLeft size={20} />,
   },
   {
-    label: 'transactions',
+    label: 'Transactions',
     to: '/transaction',
     icon: <NotebookTabs size={20} />,
   },

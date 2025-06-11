@@ -7,7 +7,9 @@ const { Account, Transaction } = require("../../db");
 
 const getUserBalance = async (req, res) => {
   try {
-    const account = await Account.findOne({ userId: req.userId });
+    const account = await Account.findOne({
+      userId: req.userId,
+    });
 
     /** Invalid account / Account Not Found */
     if (!account) {
@@ -28,10 +30,7 @@ const getUserBalance = async (req, res) => {
 };
 
 const transferFunds = async (req, res) => {
-  /** Creating transaction */
-  const session = await mongoose.startSession(); // Define session variable
-
-  /** Start Transaction */
+  const session = await mongoose.startSession();
   session.startTransaction();
 
   const { to, amount, category } = req.body;
@@ -50,37 +49,67 @@ const transferFunds = async (req, res) => {
 
     await transaction.save({ session });
 
-    const senderAcc = await Account.findOne({ userId: sender }).session(
-      session
-    );
+    const senderAcc = await Account.findOne({
+      userId: sender,
+    }).session(session);
 
-    /** Aborting transaction if user not found or insufficient balance */
+    // ❌ Insufficient Balance or Sender not found
     if (!senderAcc || senderAcc.balance < amount) {
       await session.abortTransaction();
-      return res.status(400).json({
-        message: `Insufficient balance`,
-      });
+
+      await new Transaction({
+        receiverId: receiver,
+        senderId: sender,
+        amount,
+        category,
+        transactionType: "debit",
+        statusHistory: [
+          { status: "pending" },
+          {
+            status: "failed",
+            timestamp: new Date(),
+            reason: "Insufficient balance",
+          },
+        ],
+      }).save();
+
+      return res
+        .status(400)
+        .json({ message: `Insufficient balance` });
     }
 
-    const receiverAcc = await Account.findOne({ userId: receiver }).session(
-      session
-    );
+    const receiverAcc = await Account.findOne({
+      userId: receiver,
+    }).session(session);
 
-    /** Checking if Recipient Exists in Db */
+    // ❌ Receiver Not Found
     if (!receiverAcc) {
       await session.abortTransaction();
+
+      await new Transaction({
+        receiverId: receiver,
+        senderId: sender,
+        amount,
+        category,
+        transactionType: "debit",
+        statusHistory: [
+          { status: "pending" },
+          {
+            status: "failed",
+            timestamp: new Date(),
+            reason: "Receiver not found",
+          },
+        ],
+      }).save();
+
       return res.status(400).json({
         message: `Aborting Session Recipient doesn't exist / Account Not found`,
       });
     }
 
-    /** Performing Transaction */
-    /** Handling concurrent request trial of user to transfer fund to multiple user at same time */
+    // Perform sender account update with version check
     const updateSenderFund = await Account.findOneAndUpdate(
-      {
-        userId: sender,
-        __v: senderAcc.__v,
-      },
+      { userId: sender, __v: senderAcc.__v },
       {
         $inc: { balance: -amount },
         $set: { __v: senderAcc.__v + 1 },
@@ -88,31 +117,46 @@ const transferFunds = async (req, res) => {
       { session, new: true }
     );
 
-    /** This checks if multiple request transfer request is created by sender at same time */
+    // ❌ Concurrent modification conflict
     if (!updateSenderFund) {
       await session.abortTransaction();
+
+      await new Transaction({
+        receiverId: receiver,
+        senderId: sender,
+        amount,
+        category,
+        transactionType: "debit",
+        statusHistory: [
+          { status: "pending" },
+          {
+            status: "failed",
+            timestamp: new Date(),
+            reason: "Version conflict",
+          },
+        ],
+      }).save();
+
       return res.status(409).json({
         message: `Transaction conflict: Trying multiple request at same time`,
       });
     }
 
+    // ✅ Update receiver account
     await Account.findOneAndUpdate(
       { userId: to },
-      {
-        $inc: { balance: amount },
-      },
+      { $inc: { balance: amount } },
       { session }
     );
 
+    // ✅ Update transaction status to completed
     transaction.statusHistory.push({
       status: "completed",
       timestamp: new Date(),
     });
 
-    // Save the transaction with the updated status
     await transaction.save({ session });
 
-    /** Committing Transaction | End transaction */
     await session.commitTransaction();
 
     return res.status(200).json({
@@ -125,27 +169,27 @@ const transferFunds = async (req, res) => {
       await session.abortTransaction();
     }
 
-    /** Handling Transaction Error */
-    // Log the failed transaction
-    const failedTransaction = new Transaction({
-      senderId: sender,
+    // Catch-all failure logger
+    await new Transaction({
       receiverId: receiver,
-      amount: amount,
+      senderId: sender,
+      amount,
+      category,
       transactionType: "debit",
-      category: category,
       statusHistory: [
         { status: "pending" },
-        { status: "failed", timestamp: new Date() },
+        {
+          status: "failed",
+          timestamp: new Date(),
+          reason: "Internal error",
+        },
       ],
-    });
-
-    await failedTransaction.save();
+    }).save();
 
     return res.status(500).json({
       message: `Failed transaction`,
     });
   } finally {
-    /** If session is there end the session, do not hold the thread for it to complete */
     if (session) {
       session.endSession();
     }
@@ -155,7 +199,6 @@ const transferFunds = async (req, res) => {
 const getTransactionHistory = async (req, res) => {
   try {
     const userId = req.userId; // Assuming `req.userId` contains the user's `_id`
-    console.log("userId", userId);
 
     const objectId = new mongoose.Types.ObjectId(userId);
 
@@ -214,32 +257,117 @@ const getTransactionHistory = async (req, res) => {
           _id: 1,
           amount: 1,
           transactionType: 1,
-          statusHistory: 1,
+          status: {
+            $let: {
+              vars: {
+                lastStatus: {
+                  $arrayElemAt: [
+                    "$statusHistory",
+                    {
+                      $subtract: [
+                        { $size: "$statusHistory" },
+                        1,
+                      ],
+                    },
+                  ],
+                },
+              },
+              in: "$$lastStatus.status",
+            },
+          },
           createdAt: 1,
           category: 1,
-          receiverDetails: {
-            firstName: 1,
-            lastName: 1,
-            email: 1,
+          receiverEmail: "$receiverDetails.email",
+          receiverName: {
+            $concat: [
+              {
+                $ifNull: ["$receiverDetails.firstName", ""],
+              },
+              " ",
+              {
+                $ifNull: ["$receiverDetails.lastName", ""],
+              },
+            ],
           },
-          senderDetails: {
-            firstName: 1,
-            lastName: 1,
-            email: 1,
+          senderEmail: "$senderDetails.email",
+          senderName: {
+            $concat: [
+              { $ifNull: ["$senderDetails.firstName", ""] },
+              " ",
+              { $ifNull: ["$senderDetails.lastName", ""] },
+            ],
           },
         },
       },
     ]);
 
-
     return res.status(200).json({
       transactions,
     });
   } catch (error) {
-    logger.error(`Error fetching transaction history`, error);
+    logger.error(
+      `Error fetching transaction history`,
+      error
+    );
     return res.status(500).json({
       message: `Error while fetching transaction history`,
     });
+  }
+};
+
+const addMoneyToWallet = async (req, res) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  const { amount } = req.body;
+  const userId = req.userId;
+
+  try {
+    const account = await Account.findOne({
+      userId,
+    }).session(session);
+
+    if (!account) {
+      await session.abortTransaction();
+      return res
+        .status(404)
+        .json({ message: "User account not found" });
+    }
+
+    // Update account balance
+    account.balance += amount;
+    const updatedAcc = await account.save({ session });
+
+    // Create transaction record
+    const transaction = new Transaction({
+      receiverId: userId,
+      senderId: userId,
+      amount,
+      category: "wallet",
+      transactionType: "credit",
+      statusHistory: [{ status: "completed" }],
+    });
+
+    await transaction.save({ session });
+
+    await session.commitTransaction();
+
+    return res.status(200).json({
+      balance: updatedAcc.balance,
+      message: `Money added successfully`,
+    });
+  } catch (error) {
+    logger.error(`Error adding money to wallet`, error);
+    if (session) {
+      await session.abortTransaction();
+    }
+    return res.status(500).json({
+      message: `Failed to add money to wallet`,
+    });
+  } finally {
+    if (session) {
+      session.endSession();
+    }
   }
 };
 
@@ -247,4 +375,5 @@ module.exports = {
   getUserBalance,
   transferFunds,
   getTransactionHistory,
+  addMoneyToWallet,
 };

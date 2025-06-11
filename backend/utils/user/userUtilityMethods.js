@@ -13,7 +13,6 @@ const {
 const userSignup = async (req, res) => {
   try {
     const { success } = signUpbody.safeParse(req.body);
-    console.log("user signin", req.body);
 
     /** Checking input format of request */
     if (!success) {
@@ -69,7 +68,6 @@ const userSignup = async (req, res) => {
 const userSignin = async (req, res) => {
   try {
     const { success } = signInbody.safeParse(req.body);
-    console.log("user signin", req.body);
     if (!success) {
       return res.status(411).json({
         message: `Incorrect Email/Password format`,
@@ -169,7 +167,6 @@ const updateUser = async (req, res) => {
 
 const getUserData = async (req, res) => {
   const userId = req.userId;
-  console.log("userId get data", userId);
 
   const user = await User.findOne({
     _id: userId,
@@ -180,9 +177,6 @@ const getUserData = async (req, res) => {
     firstName: user?.firstName || null,
     lastName: user?.lastName || null
   }
-
-  console.log("user", user);
-  console.log("data", data);
 
   return res.status(200).json({ data: data });
 };

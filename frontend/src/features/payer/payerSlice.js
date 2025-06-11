@@ -1,32 +1,27 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getUsers } from '../../apireq/user/user';
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchUserList } from '../thunks/thunks';
 
-export const fetchUserList = createAsyncThunk(
-  'account/fetchUserList',
-  async (filter, { rejectWithValue }) => {
-    try {
-      const response = await getUsers(filter);
-      return response;
-    } catch (error) {
-      return rejectWithValue(error.message || 'Failed to fetch user list');
-    }
-  }
-);
-
-const dashboardSlice = createSlice({
-  name: 'dashboard',
+const payersSlice = createSlice({
+  name: 'payers',
   initialState: {
     userList: [],
     loading: false,
     error: null,
+    search: false,
   },
-  reducers: {},
+  reducers: {
+    updateSearchState: (state, action) => {
+      console.log('search state', action.payload);
+
+      state.state = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchUserList.pending, state => {
         state.loading = true;
         state.error = null;
+        state.search = true;
       })
       .addCase(fetchUserList.fulfilled, (state, action) => {
         state.loading = false;
@@ -40,5 +35,5 @@ const dashboardSlice = createSlice({
       });
   },
 });
-
-export default dashboardSlice.reducer;
+export const { updateSearchState } = payersSlice.actions;
+export default payersSlice.reducer;
