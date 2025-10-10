@@ -5,7 +5,7 @@ const app = express();
 const logger = require("./utils/logger"); // Import logger
 const passport = require("./config/passport"); // Import passport
 
-app.set("trust proxy", true);
+app.set("trust proxy", 1);
 app.use(cors({ origin: process.env.REACT_APP_URI }));
 app.use(express.json());
 
