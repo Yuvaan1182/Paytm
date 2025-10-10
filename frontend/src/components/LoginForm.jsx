@@ -12,7 +12,8 @@ const LoginForm = () => {
   const [currentFieldIndex, setCurrentFieldIndex] = useState(0);
 
   const login = () => {
-    window.location.href = 'http://localhost:3000/api/v1/auth/google';
+    const baseUrl = import.meta.env.VITE_BASE_DEV_URL || 'http://localhost:3000';
+    window.location.href = `${baseUrl}/api/v1/auth/google`;
   };
 
   const fields = [

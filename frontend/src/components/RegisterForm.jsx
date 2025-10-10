@@ -52,7 +52,8 @@ const RegisterForm = () => {
   };
 
   const login = () => {
-    window.location.href = 'http://localhost:3000/api/v1/auth/google';
+    const baseUrl = import.meta.env.VITE_BASE_DEV_URL || 'http://localhost:3000';
+    window.location.href = `${baseUrl}/api/v1/auth/google`;
   };
 
   const variants = {
@@ -73,18 +74,18 @@ const RegisterForm = () => {
   const isFormValid = fields.every(field => user[field.name]?.trim() !== '');
 
   return (
-    <form className="flex w-96 flex-col items-center gap-4">
+    <form className="flex flex-col items-center gap-4 w-96">
       <div className="text-center">
         <div className="text-3xl font-extrabold tracking-wide text-gray-900">Create an account</div>
         <div className="max-w-80">Enter your details to sign up for this app.</div>
       </div>
 
-      <div className="relative flex h-16 w-96 flex-col items-center justify-center">
+      <div className="relative flex flex-col items-center justify-center h-16 w-96">
         {currentFieldIndex !== 0 && (
           <button
             type="button"
             onClick={handlePrev}
-            className="absolute -left-14 rounded-full bg-gray-300 p-2 transition-colors duration-300 hover:bg-gray-100"
+            className="absolute p-2 transition-colors duration-300 bg-gray-300 rounded-full -left-14 hover:bg-gray-100"
           >
             <ChevronLeft />
           </button>
@@ -105,14 +106,14 @@ const RegisterForm = () => {
             placeholder={fields[currentFieldIndex].placeholder}
             value={user[fields[currentFieldIndex].name] || ''}
             onChange={handleChange}
-            className="w-full rounded-lg border bg-white px-4 py-3 focus:outline-gray-400"
+            className="w-full px-4 py-3 bg-white border rounded-lg focus:outline-gray-400"
           />
         </motion.div>
         {currentFieldIndex !== fields.length - 1 && (
           <button
             type="button"
             onClick={handleNext}
-            className="absolute -right-14 rounded-full bg-gray-300 p-2 transition-colors duration-300 hover:bg-gray-100"
+            className="absolute p-2 transition-colors duration-300 bg-gray-300 rounded-full -right-14 hover:bg-gray-100"
           >
             <ChevronRight />
           </button>
@@ -130,20 +131,20 @@ const RegisterForm = () => {
       >
         Register
       </button>
-      <div className="my-5 flex w-2/3 items-center gap-4">
-        <div className="h-px flex-1 bg-gray-300"></div>
+      <div className="flex items-center w-2/3 gap-4 my-5">
+        <div className="flex-1 h-px bg-gray-300"></div>
         <div className="text-center text-gray-700">or continue with</div>
-        <div className="h-px flex-1 bg-gray-300"></div>
+        <div className="flex-1 h-px bg-gray-300"></div>
       </div>
       <button
         type="button"
         onClick={() => login()}
-        className="flex items-center justify-center gap-4 rounded-lg bg-gray-200 p-4 font-serif tracking-wide shadow-lg hover:bg-gray-100"
+        className="flex items-center justify-center gap-4 p-4 font-serif tracking-wide bg-gray-200 rounded-lg shadow-lg hover:bg-gray-100"
       >
         <img className="w-5" src={google} alt="Google" />
       </button>
-      <div className="flex w-full justify-start">
-        <p className="rounded-md py-2 font-semibold text-blue-500 hover:underline">
+      <div className="flex justify-start w-full">
+        <p className="py-2 font-semibold text-blue-500 rounded-md hover:underline">
           <Link to="/login">Login</Link>
         </p>
         <p className="cursor-pointer hover:underline"></p>
