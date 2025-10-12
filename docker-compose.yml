@@ -1,0 +1,70 @@
+version: '3.8'
+services:
+  frontend:
+    build: ./frontend
+    container_name: velora-frontend
+    ports:
+      - '5173:80' # Expose frontend on port 5173
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      - backend
+    networks:
+      - velora-network
+
+  backend:
+    build: ./backend
+    container_name: velora-backend
+    ports:
+      - '3000:3000' # Expose backend on port 3000 write 1st as 0 it will assign whatever port is free
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - mongo
+    networks:
+      - velora-network
+
+
+  mongo:
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    image: mongo:latest
+    networks:
+      - velora-network
+    ports:
+      - '27017:27017'
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+    
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - '8081:8081'
+    environment:
+      # If want to connect to MongoDB Atlas then comment below env variables and uncomment below commented env variables and set your atlas credentials
+      # Make sure your IP is whitelisted in MongoDB Atlas and do not up mongo service
+      # ME_CONFIG_MONGODB_URL: <Your MongoDB Atlas Connection String>
+      # ME_CONFIG_MONGODB_ADMINUSERNAME: <Your MongoDB Atlas Username>
+      # ME_CONFIG_MONGODB_ADMINPASSWORD: <Your MongoDB Atlas Password>
+      # ME_CONFIG_MONGODB_SERVER: <Your MongoDB Atlas Server Address>
+      # If want to connect to local mongodb then up mongo service and set below env variables
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_SERVER: mongo
+    networks:
+      - velora-network
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:
+
+networks:
+  velora-network:
+    driver: bridge

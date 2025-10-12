@@ -13,6 +13,7 @@ export default ({ mode }) => {
   return defineConfig({
     plugins: [react(), tailwindcss()],
     server: {
+      host: true,
       proxy: {
         '/api': {
           target: env.VITE_BASE_DEV_URL || 'http://localhost:3000',
