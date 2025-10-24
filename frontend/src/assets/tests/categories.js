@@ -1,0 +1,98 @@
+export const categories = [
+  {
+    key: 'food',
+    label: 'Food',
+    icon: 'Utensils',
+    color: 'bg-orange-100 text-orange-800  hover:ring-orange-800 dark:hover:ring-white',
+  },
+  {
+    key: 'grocery',
+    label: 'Grocery',
+    icon: 'ShoppingCart',
+    color: 'bg-green-100 text-green-800  hover:ring-green-800 dark:hover:ring-white',
+  },
+  {
+    key: 'electricity',
+    label: 'Electricity',
+    icon: 'Zap',
+    color: 'bg-yellow-100 text-yellow-800  hover:ring-yellow-800 dark:hover:ring-white',
+  },
+  {
+    key: 'rent',
+    label: 'Rent',
+    icon: 'Home',
+    color: 'bg-gray-100 text-gray-800  hover:ring-gray-800 dark:hover:ring-white',
+  },
+  {
+    key: 'recharge',
+    label: 'Recharge',
+    icon: 'Smartphone',
+    color: 'bg-blue-100 text-blue-800  hover:ring-blue-800 dark:hover:ring-white',
+  },
+  {
+    key: 'credit_card',
+    label: 'Credit Card',
+    icon: 'CreditCard',
+    color: 'bg-indigo-100 text-indigo-800  hover:ring-indigo-800 dark:hover:ring-white',
+  },
+  {
+    key: 'travel',
+    label: 'Travel',
+    icon: 'Plane',
+    color: 'bg-cyan-100 text-cyan-800  hover:ring-cyan-800 dark:hover:ring-white',
+  },
+  {
+    key: 'health',
+    label: 'Health',
+    icon: 'HeartPulse',
+    color: 'bg-red-100 text-red-800  hover:ring-red-800 dark:hover:ring-white',
+  },
+  {
+    key: 'subscription',
+    label: 'Subscription',
+    icon: 'Tv',
+    color: 'bg-purple-100 text-purple-800  hover:ring-purple-800 dark:hover:ring-white',
+  },
+  {
+    key: 'shopping',
+    label: 'Shopping',
+    icon: 'ShoppingBag',
+    color: 'bg-pink-100 text-pink-800  hover:ring-pink-800 dark:hover:ring-white',
+  },
+  {
+    key: 'bills',
+    label: 'Bills',
+    icon: 'FileText',
+    color: 'bg-yellow-100 text-yellow-800  hover:ring-yellow-800 dark:hover:ring-white',
+  },
+  {
+    key: 'education',
+    label: 'Education',
+    icon: 'GraduationCap',
+    color: 'bg-blue-100 text-blue-800  hover:ring-blue-800 dark:hover:ring-white',
+  },
+  {
+    key: 'transfer',
+    label: 'Transfer',
+    icon: 'Send',
+    color: 'bg-teal-100 text-teal-800  hover:ring-teal-800 dark:hover:ring-white',
+  },
+  {
+    key: 'bank',
+    label: 'Bank',
+    icon: 'Banknote',
+    color: 'bg-slate-100 text-slate-800  hover:ring-slate-800 dark:hover:ring-white',
+  },
+  {
+    key: 'salary',
+    label: 'Salary',
+    icon: 'Briefcase',
+    color: 'bg-lime-100 text-lime-800  hover:ring-lime-800 dark:hover:ring-white',
+  },
+  {
+    key: 'utilities',
+    label: 'Utilities',
+    icon: 'Wrench',
+    color: 'bg-zinc-100 text-zinc-800  hover:ring-zinc-800 dark:hover:ring-white',
+  },
+];

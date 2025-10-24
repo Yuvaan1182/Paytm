@@ -1,9 +1,11 @@
-import React from "react";
+import PropTypes from 'prop-types';
 
-function SubHeading({ label }) {
-  return (
-    <div className="text-gray-400 text-sm text-center py-2 px-4">{label}</div>
-  );
-}
+const SubHeading = ({ label }) => {
+  return <div className="px-4 py-2 text-center text-sm text-gray-400">{label}</div>;
+};
+
+SubHeading.propTypes = {
+  label: PropTypes.string.isRequired,
+};
 
 export default SubHeading;

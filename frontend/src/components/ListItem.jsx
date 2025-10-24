@@ -1,37 +1,28 @@
-import Button from "./Button";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import Button from './Button';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
-export default function ListItem({ user }) {  
-  const name = user.firstName + " " + user.lastName;
+export default function ListItem({ user }) {
+  const name = user.firstName + ' ' + user.lastName;
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     e.preventDefault();
-    navigate("/transfer", { state: { user } });
+    navigate('/transfer', { state: { user } });
   };
 
   return (
-    <div 
-      className="flex items-center justify-between rounded-md shadow-sm border-gray-300 border-2 p-2 relative group"
-    >
+    <div className="group relative flex items-center justify-between rounded-md border-2 border-gray-300 p-2 shadow-sm">
       <div className="flex items-center gap-4">
-        <div className="w-8 h-8 text-white bg-blue-400 rounded-full flex items-center justify-center">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-400 text-white">
           {name[0]}
         </div>
-        <div className="text-base font-sans font-semibold">{name}</div>
+        <div className="font-sans text-base font-semibold">{name}</div>
       </div>
       <div>
-        <Button
-          label={"Send Money"}
-          type={"submit"}
-          color={"blue"}
-          handleClick={handleClick}
-        />
+        <Button label={'Send Money'} type={'submit'} color={'blue'} handleClick={handleClick} />
       </div>
-      <div 
-        className="absolute bottom-full left-10 mt-1 bg-gray-100 text-gray-700 text-sm p-2 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
-      >
+      <div className="absolute bottom-full left-10 mt-1 rounded bg-gray-100 p-2 text-sm text-gray-700 opacity-0 shadow-md transition-opacity group-hover:opacity-100">
         {user.email}
       </div>
     </div>

@@ -4,7 +4,11 @@ const logger = require("../logger"); // Import logger
 
 const JWT_SECRET = require("../../config");
 const { User, Account } = require("../../db");
-const { signUpbody, signInbody, updateBody } = require("./userInputConfig");
+const {
+  signUpbody,
+  signInbody,
+  updateBody,
+} = require("./userInputConfig");
 
 const userSignup = async (req, res) => {
   try {
@@ -34,7 +38,9 @@ const userSignup = async (req, res) => {
     const userId = dbUser._id;
 
     /** Creating Random balance to update in Account of User */
-    const balance = Math.floor(10000 + Math.random() * 100000);
+    const balance = Math.floor(
+      10000 + Math.random() * 100000
+    );
 
     /** Updating a random balance in User Account i.e, Account Model */
     await Account.create({
@@ -51,8 +57,6 @@ const userSignup = async (req, res) => {
     );
 
     return res.status(200).json({
-      balance: balance,
-      message: `User created successfully`,
       token: token,
     });
   } catch (error) {
@@ -62,11 +66,8 @@ const userSignup = async (req, res) => {
 };
 
 const userSignin = async (req, res) => {
-  logger.info("Inside signIn");
-  
   try {
     const { success } = signInbody.safeParse(req.body);
-
     if (!success) {
       return res.status(411).json({
         message: `Incorrect Email/Password format`,
@@ -85,20 +86,21 @@ const userSignin = async (req, res) => {
         },
         JWT_SECRET,
         {
-          expiresIn: "1h"
+          expiresIn: "1h",
         }
       );
 
-      const account = await Account.findOne({ userId: user._id });
+      const account = await Account.findOne({
+        userId: user._id,
+      });
       const balance = account.balance;
       user.balance = balance;
 
-      const { _id, __v, ...userWithoutIdAndVersion } = user.toObject();
+      const { _id, __v, ...userWithoutIdAndVersion } =
+        user.toObject();
 
       return res.status(200).json({
-        user: userWithoutIdAndVersion,
-        balance: balance,
-        message: "Successfully SignedIn",
+        message: "User Login Successful",
         token: token,
       });
     }
@@ -117,7 +119,7 @@ const getUsers = async (req, res) => {
     const filter = req.query.filter || "";
 
     const users = await User.find({
-      $or: [{ firstName: filter }, { lastName: filter }],
+      $or: [{ firstName: filter }, { lastName: filter }, {email: filter}],
     });
 
     return res.status(200).json({
@@ -141,16 +143,21 @@ const updateUser = async (req, res) => {
     const success = updateBody.safeParse(req.body);
 
     if (!success) {
-      return res
-        .status(411)
-        .json({ message: `Error while updating information` });
+      return res.status(411).json({
+        message: `Error while updating information`,
+      });
     }
 
     await User.updateOne({ _id: req.userId }, req.body);
 
-    return res.status(200).json({ message: `User updated Successfully` });
+    return res
+      .status(200)
+      .json({ message: `User updated Successfully` });
   } catch (error) {
-    logger.error(`Error Occurred while updating information`, error);
+    logger.error(
+      `Error Occurred while updating information`,
+      error
+    );
 
     return res.status(411).json({
       message: `Error while updating information`,
@@ -158,9 +165,26 @@ const updateUser = async (req, res) => {
   }
 };
 
+const getUserData = async (req, res) => {
+  const userId = req.userId;
+
+  const user = await User.findOne({
+    _id: userId,
+  });
+
+  const data = {
+    email: user?.email || null,
+    firstName: user?.firstName || null,
+    lastName: user?.lastName || null
+  }
+
+  return res.status(200).json({ data: data });
+};
+
 module.exports = {
   userSignup,
   userSignin,
   updateUser,
   getUsers,
+  getUserData,
 };

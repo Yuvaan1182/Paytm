@@ -6,10 +6,10 @@
  * componentDidCatch():
  * Logs error details for debugging.
  * Reload Button:
- * Provides a way for the user to refresh and try again. 
+ * Provides a way for the user to refresh and try again.
  * */
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -23,19 +23,17 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error("Error caught by ErrorBoundary:", error, errorInfo);
+    console.error('Error caught by ErrorBoundary:', error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div className="flex flex-col items-center justify-center h-screen">
-          <h1 className="text-2xl font-bold text-red-500">
-            Something went wrong!
-          </h1>
+        <div className="flex h-screen flex-col items-center justify-center">
+          <h1 className="text-2xl font-bold text-red-500">Something went wrong!</h1>
           <p>{this.state.error?.message}</p>
           <button
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+            className="mt-4 rounded bg-blue-500 px-4 py-2 text-white"
             onClick={() => window.location.reload()}
           >
             Reload

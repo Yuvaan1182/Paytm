@@ -1,0 +1,172 @@
+2025-04-30T12:13:53.055Z [ERROR]: Error in Authentication:  jwt expired
+2025-04-30T12:23:50.788Z [ERROR]: Error Occurred while Google Login/Signup Assignment to constant variable.
+2025-04-30T13:28:39.485Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-30T13:28:39.504Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-30T13:28:39.565Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-30T13:28:39.575Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-30T23:15:34.525Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-30T23:15:34.549Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-30T23:15:34.561Z [ERROR]: Error in Authentication:  jwt malformed
+2025-04-30T23:15:34.573Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-02T20:46:44.403Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-02T20:46:44.415Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-02T20:46:44.418Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-02T20:46:44.423Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-03T06:15:18.468Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-03T06:15:18.483Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-03T06:15:18.496Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-03T06:15:18.525Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T07:00:39.350Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T07:00:39.359Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T07:00:39.366Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T07:00:39.372Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T09:44:12.005Z [ERROR]: Error Occurred while Google Login/Signup 1C380000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-05-05T10:44:57.435Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-05T12:52:43.098Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T12:52:43.108Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T12:52:43.116Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T12:52:43.132Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:08.462Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:08.467Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:08.470Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:08.474Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:21.487Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:21.490Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:21.494Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-05T17:20:21.513Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-06T18:19:37.416Z [ERROR]: Error in transaction Transaction validation failed: category: Path `category` is required.
+2025-05-08T02:52:55.080Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-08T02:52:55.089Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-08T02:52:55.097Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-08T02:52:55.103Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-08T09:12:51.616Z [ERROR]: Error in transaction Transaction validation failed: receiverId: Path `receiverId` is required.
+2025-05-08T09:31:39.930Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-08T09:32:02.692Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-17T19:54:25.441Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-18T14:41:06.083Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-18T14:44:30.484Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-18T14:44:30.512Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-18T14:44:30.519Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-18T14:44:30.532Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-18T19:06:28.857Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:06:59.990Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:07:05.542Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:07:37.958Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:08:32.594Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:09:29.344Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:10:50.926Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:11:39.758Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:11:45.611Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:11:49.337Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:11:52.752Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:12:20.097Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-18T19:13:06.203Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-20T13:14:00.856Z [ERROR]: Error Occurred while Google Login/Signup 10510000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-05-20T14:18:46.699Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-20T14:18:46.710Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-20T14:18:46.723Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-20T14:18:46.737Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-20T17:24:49.657Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-20T17:25:24.942Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-20T17:27:14.936Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-20T17:27:14.981Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-20T17:27:14.992Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-20T17:27:15.002Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-23T12:02:46.505Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-23T13:17:09.765Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-23T13:17:09.768Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-23T13:17:09.772Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-23T13:17:09.777Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-23T17:17:24.589Z [ERROR]: Error Occurred while Google Login/Signup 3C230000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-05-23T17:18:43.470Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-24T05:55:12.412Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-24T06:09:18.210Z [ERROR]: Error Occurred while Google Login/Signup connect ETIMEDOUT 159.41.197.54:27017
+2025-05-24T06:37:08.916Z [ERROR]: Error Occurred while Google Login/Signup connect ETIMEDOUT 159.41.197.66:27017
+2025-05-24T10:55:19.688Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-24T10:55:19.702Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-24T10:55:19.709Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-24T10:55:19.716Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-24T11:01:26.857Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-24T11:01:26.934Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-24T11:01:26.944Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-24T11:01:26.956Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-24T14:47:15.430Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-24T14:47:15.442Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-24T14:47:15.449Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-24T14:47:15.458Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-26T12:29:26.312Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-26T13:05:39.694Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-26T13:05:39.721Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-26T13:05:39.727Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-26T13:05:39.738Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-26T15:05:20.836Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-26T15:05:20.842Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-26T15:05:20.846Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-26T15:05:20.849Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T10:09:33.443Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-28T10:11:38.560Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T10:11:38.581Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T10:11:38.588Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T10:11:38.594Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T11:21:35.972Z [ERROR]: Error Occurred while Google Login/Signup connect ETIMEDOUT 159.41.197.54:27017
+2025-05-28T11:22:24.804Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-28T11:23:41.805Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-28T12:56:51.418Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T12:57:03.284Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T12:57:03.290Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T12:57:03.296Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T12:57:03.300Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T17:07:18.283Z [ERROR]: Error adding money to wallet Transaction validation failed: category: `wallet` is not a valid enum value for path `category`.
+2025-05-28T17:10:03.272Z [ERROR]: Error adding money to wallet Transaction validation failed: category: `wallet` is not a valid enum value for path `category`.
+2025-05-28T17:14:29.304Z [ERROR]: Error adding money to wallet Assignment to constant variable.
+2025-05-28T17:33:49.286Z [ERROR]: Error in Authentication:  jwt expired
+2025-05-28T17:54:55.512Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-28T17:56:49.053Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-28T19:30:31.606Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T19:30:31.614Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T19:30:31.621Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T19:30:31.625Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T20:35:16.230Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T20:35:16.233Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T20:35:16.239Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-28T20:35:16.242Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-29T05:38:29.264Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-05-29T07:23:56.674Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-29T07:23:56.682Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-29T07:23:56.686Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-29T07:23:56.690Z [ERROR]: Error in Authentication:  jwt malformed
+2025-05-29T07:37:24.227Z [ERROR]: Error in transaction Transaction validation failed: amount: Cast to Number failed for value "dlksfjsdlkafjsad" (type string) at path "amount"
+2025-06-02T14:14:18.861Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-06-07T05:48:26.729Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-06-07T18:58:06.152Z [ERROR]: Error Occurred while Google Login/Signup EC540000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+2025-06-07T18:59:15.703Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-06-07T20:03:39.561Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-07T20:03:39.570Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-08T06:53:04.428Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-08T06:53:04.444Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-08T06:53:04.451Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-08T06:53:04.458Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-08T16:19:41.441Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-08T16:19:41.452Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-08T16:19:41.459Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-08T16:19:41.465Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-09T12:30:50.077Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-09T12:30:50.083Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-09T12:30:50.089Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-09T12:30:50.094Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-10T10:45:09.758Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-10T10:45:09.772Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-10T10:45:09.778Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-10T10:45:09.783Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-10T10:46:25.249Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-06-10T12:06:17.171Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-10T12:06:17.183Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-10T12:06:17.190Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-10T12:06:17.197Z [ERROR]: Error in Authentication:  jwt malformed
+2025-06-11T11:19:39.282Z [ERROR]: ❌ MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2025-06-11T13:08:19.753Z [ERROR]: ❌ MongoDB connection error: C4350000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+

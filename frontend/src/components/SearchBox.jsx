@@ -1,17 +1,11 @@
-import { FiSearch } from "react-icons/fi";
-import PropTypes from "prop-types";
+import { FiSearch } from 'react-icons/fi';
+import PropTypes from 'prop-types';
 
-export default function SearchBox({
-  placeholder,
-  type,
-  value,
-  handleChange,
-  handleClick,
-}) {
+export default function SearchBox({ placeholder, type, value, handleChange, handleClick }) {
   return (
-    <div className="flex items-center h-full w-full">
+    <div className="flex h-full items-center">
       <input
-        className="w-full focus:border-r-0 focus:outline-none focus:border-blue-400 py-2 px-3 rounded-md rounded-tr-none rounded-br-none border-2 border-r-0"
+        className="rounded-md rounded-tr-none rounded-br-none border-2 border-r-0 bg-slate-900 px-3 py-2 text-slate-400 focus:border-r-0 focus:border-b-slate-800 focus:outline-none"
         type={type}
         placeholder={placeholder}
         value={value}
@@ -19,7 +13,7 @@ export default function SearchBox({
         required
       />
       <div
-        className="flex items-center justify-center font-bold bg-blue-400 text-white rounded-md px-4 h-full rounded-bl-none rounded-tl-none"
+        className="flex h-full items-center justify-center rounded-md rounded-tl-none rounded-bl-none bg-blue-400 px-4 font-bold text-white"
         onClick={handleClick}
       >
         <FiSearch />

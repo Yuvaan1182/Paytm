@@ -1,7 +1,11 @@
-import React from "react";
+import PropTypes from 'prop-types';
 
-function Heading({ label }) {
-  return <div className="text-4xl font-bold text-blue-400 pt-4">{label}</div>;
-}
+const Heading = ({ label }) => {
+  return <div className="pt-4 text-4xl font-bold text-blue-400">{label}</div>;
+};
+
+Heading.propTypes = {
+  label: PropTypes.string.isRequired,
+};
 
 export default Heading;
